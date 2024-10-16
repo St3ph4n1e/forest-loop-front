@@ -7,5 +7,4 @@ import { defineComponent } from 'vue';
 </template>
 
 <style scoped>
-/* Ajoute ton style ici si nécessaire */
 </style>

@@ -13,7 +13,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <h1>Page d'attente</h1>
+    <h1 >Page d'attente</h1>
     <p>Veuillez patienter...</p>
     <Loader  v-if="isLoading" />
   </div>

@@ -12,7 +12,7 @@ const goToWaitingArea = () => {
 onMounted(() => {
   setTimeout(() => {
     isLoading.value = false; 
-  }, 4500); 
+  }, 3500); 
 });
 </script>
 
