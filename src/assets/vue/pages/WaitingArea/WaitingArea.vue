@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import Loader from '../../components/Loader.vue'
 import { useRouter } from 'vue-router'
-// import 'animate.css';
+import 'animate.css'
 
 const router = useRouter()
 const isLoading = ref(false)
@@ -30,12 +30,14 @@ const goToGame = () => {
       <h1 class="text-6xl font-bold text-white">Forest Loop</h1>
       <h2 class="text-2xl mt-4 text-gray-300">Plongez dans l'aventure!</h2>
     </div>
-    <!-- <button class=" animate__animated animate__fadeOut bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Commencer
-      </button> -->
+    <button
+      class="animate__animated animate__fadeOut bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Commencer
+    </button>
     <!-- Waiting room card -->
-    <!--<div class="waitingCard animate__animated animate__fadeIn">-->
-    <div class="waitingCard">
+    <div class="waitingCard animate__animated animate__fadeIn">
+      <!-- <div class="waitingCard"> -->
       <div class="px-6 py-4">
         <div class="font-bold text-l text-white">Code de la partie</div>
         <label for="gamecode"></label>

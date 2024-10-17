@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Modal from '../../components/Modal/Modal.vue'
+import Header from '../../components/Header/Header.vue'
 
 const router = useRouter()
 const isLoading = ref(true)
@@ -18,11 +19,12 @@ const handleModal = () => {
 onMounted(() => {
   setTimeout(() => {
     isLoading.value = false
-  }, 4500)
+  }, 3500)
 })
 </script>
 
 <template>
+  <Header></Header>
   <section class="home">
     <div v-if="isLoading" class="overlay"></div>
     <div class="content">
@@ -37,7 +39,7 @@ onMounted(() => {
     </div>
     <button class="btn" @click="handleModal">Modal</button>
     <Modal
-      title="Titre"
+      title="TITRE"
       description="lorem"
       :show-modal="showModal"
       @close="handleModal"
