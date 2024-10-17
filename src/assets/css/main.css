@@ -2,21 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  @keyframes zoom-background {
-    0% {
-      background-size: 100%;
-    }
-    100% {
-      background-size: 150%;
-    }
-  }
-
-  .zoom-bg {
-    animation: zoom-background 45s ease-in-out infinite alternate ;
-  }
-}
-
 #app {
   width: 100%;
   margin: 0 auto;
@@ -24,5 +9,4 @@
   padding: 2rem;
   font-weight: normal;
   background: url(../images/background.png) lightgray 50% / cover no-repeat;
-  @apply zoom-bg;
 }
