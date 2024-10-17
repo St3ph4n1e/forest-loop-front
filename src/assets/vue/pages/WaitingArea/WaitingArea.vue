@@ -7,32 +7,30 @@ import 'animate.css';
 const router = useRouter();
 const isLoading = ref(false);
 const code = ref('');
+const isError = ref(false);
 
 const goToGame = () => {
-  const errorMessage = document.getElementsByClassName('errorMessage')[0];
-  if (code.value == '12345'){
+
+  if (code.value === '12345'){
     isLoading.value = true
     setTimeout(() => {
       isLoading.value = false;
       router.push('/game');
     }, 2000);
   }
-  if (errorMessage) {
-    errorMessage.style.display = 'block';
+  if (code.value !== '12345' ) {
+    isError.value= true;
+
+
   }
 };
 
-/*onMounted(() => {
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 2000);
-});*/
+
 </script>
 
 <template>
   <section class="waiting">
     <div v-if="isLoading" class="overlay"></div>
-      <!-- Classe pour l'animation de déplacement vers le haut -->
       <div class="title">
         <h1 class="text-6xl font-bold text-white">Forest Loop</h1>
         <h2 class="text-2xl mt-4 text-gray-300">Plongez dans l'aventure!</h2>
@@ -47,7 +45,7 @@ const goToGame = () => {
         <div class="font-bold text-l text-white">Code de la partie</div>
         <label for="gamecode"></label>
         <input v-model="code" type="text" id="gamecode" class="bg-gray-50 py-4 px-10 my-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-center" maxlength="5" placeholder="Entrez un code" required />
-        <div class="errorMessage hidden font-bold text-xs text-red-500">Veuillez réessayer avec un code valide</div>
+        <div v-if="isError" class="errorMessage  font-bold text-xs text-red-500">Veuillez réessayer avec un code valide</div>
         <button @click="goToGame" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Valider
         </button>
