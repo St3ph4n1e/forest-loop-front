@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  overflow: hidden;
+}
+
 #app {
   width: 100%;
   margin: 0 auto;
@@ -9,4 +13,5 @@
   padding: 2rem;
   font-weight: normal;
   background: url(../images/background.png) lightgray 50% / cover no-repeat;
+  overflow: hidden;
 }

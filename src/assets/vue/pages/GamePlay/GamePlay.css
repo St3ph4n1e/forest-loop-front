@@ -1,0 +1,41 @@
+body {
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 4rem);
+    gap: 60px;
+}
+
+.left-pane {
+    flex: 2;
+    position: relative;
+    opacity: 0.9;
+    backdrop-filter: blur(50px);
+    border-radius: 30px;
+}
+
+.grid-map {
+    width: 600px;
+    height: 600px;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.9;
+    backdrop-filter: blur(50px);
+    border-radius: 30px;
+}
+
+.right-pane {
+    flex: 1;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    opacity: 0.9;
+    backdrop-filter: blur(50px);
+}
+
