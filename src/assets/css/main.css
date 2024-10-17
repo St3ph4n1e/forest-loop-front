@@ -11,12 +11,9 @@
   font-family: 'Press Start 2P', cursive;
   background: url(../images/background.png) center / cover no-repeat;
   background-color: lightgray;
-  overflow: hidden;
-}
 
 html,
 body {
   height: 100%;
   margin: 0;
-  overflow: hidden;
 }
