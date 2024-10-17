@@ -1,32 +1,32 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-// import { fetchData } from '@/axios/api';
-// import socket from '@/socket-io/socket'; 
+import { fetchData } from '@/axios/api';
+import socket from '@/socket-io/socket'; 
 // --> socketIO = commentaires *******
 
 const router = useRouter();
 const isLoading = ref(true); 
-// const message = ref('');
+const message = ref('');
 
 const goToWaitingArea = () => {
   router.push('/wait'); 
 };
 
-// const getData = async () => {
-//   try {
-//     const data = await fetchData();
-//     message.value = data.message; 
-//   } catch (error) {
-//     console.error('Error getting data:', error);
-//   }
-// };
+const getData = async () => {
+  try {
+    const data = await fetchData();
+    message.value = data.message; 
+  } catch (error) {
+    console.error('Error getting data:', error);
+  }
+};
 
 
 //*********************** */
-// const sendMessage = () => {
-//   socket.emit('message', { content: 'Hello from Vue!' });
-// };
+const sendMessage = () => {
+  socket.emit('test message', { content: 'Hello from Vue!' });
+};
 
 onMounted(() => {
 
@@ -34,9 +34,11 @@ onMounted(() => {
 
 
 //********************* */
-  // socket.on('message', (data) => {
-  //   message.value = data.response; 
-  // });
+  socket.on('test message', (data) => {
+    console.log(data);
+    
+    message.value = data; 
+  });
 
   setTimeout(() => {
     isLoading.value = false; 
@@ -45,17 +47,19 @@ onMounted(() => {
 </script>
 
 <template>
-   <!-- <div>
-        <h1>{{ message }}</h1>
-      </div> -->
+   <div>
+        <h1 class="text-3xl font-bold text-blue-500">{{ message }}</h1>
+      </div>
     <section class="home">
-      <input  type="text">
       <div v-if="isLoading" class="overlay"></div> 
       <div class="content">
         <h1 class="text-6xl font-bold text-white">Forest Loop</h1>
         <h2 class="text-2xl mt-4 text-gray-300">Plongez dans l'aventure!</h2>
         <button @click="goToWaitingArea" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Commencer
+        </button>
+        <button @click="sendMessage" class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Socket
         </button>
       </div>
     </section>
