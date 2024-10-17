@@ -21,19 +21,22 @@ const closeModal = () => {
 </script>
 
 <template>
-  <section class="fl-modal" v-if="showModal">
+  <section
+    class="fl-modal"
+    :class="{ 'fade-in': showModal, 'fade-out': !showModal }"
+    v-if="showModal"
+  >
+    <div class="modal-overlay" @click="closeModal"></div>
     <div class="modal-body flex flex-col justify-between">
       <div class="modal-header text-center">
         <h2>{{ title }}</h2>
         <span @click="closeModal" class="close-btn">&times;</span>
       </div>
-      <hr />
       <div class="modal-content">
         <p>{{ description }}</p>
       </div>
-      <hr />
       <footer class="modal-footer">
-        <button @click="closeModal">C'est Compris</button>
+        <button class="btn" @click="closeModal">C'est Compris</button>
       </footer>
     </div>
   </section>
