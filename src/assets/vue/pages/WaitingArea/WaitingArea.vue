@@ -9,6 +9,7 @@ const isLoading = ref(false);
 const code = ref('');
 
 const goToGame = () => {
+  const errorMessage = document.getElementsByClassName('errorMessage')[0];
   if (code.value == '12345'){
     isLoading.value = true
     setTimeout(() => {
@@ -16,7 +17,9 @@ const goToGame = () => {
       router.push('/game');
     }, 2000);
   }
-
+  if (errorMessage) {
+    errorMessage.style.display = 'block';
+  }
 };
 
 /*onMounted(() => {
@@ -41,12 +44,14 @@ const goToGame = () => {
     <!--<div class="waitingCard animate__animated animate__fadeIn">-->
     <div class="waitingCard">
       <div class="px-6 py-4">
-        <div class="font-bold text-xl text-white ">Code de partie</div>
+        <div class="font-bold text-l text-white">Code de la partie</div>
         <label for="gamecode"></label>
         <input v-model="code" type="text" id="gamecode" class="bg-gray-50 py-4 px-10 my-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-center" maxlength="5" placeholder="Entrez un code" required />
+        <div class="errorMessage hidden font-bold text-xs text-red-500">Veuillez réessayer avec un code valide</div>
         <button @click="goToGame" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Valider
         </button>
+
       </div>
     </div>
     <Loader  v-if="isLoading" />
