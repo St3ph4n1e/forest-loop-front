@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Modal from '../../components/Modal/Modal.vue'
 import Header from '../../components/Header/Header.vue'
+import RuleCard from '../../components/RuleCard/RuleCard.vue'
 import { ref } from 'vue'
 
 const showModal = ref(false)
@@ -30,6 +31,8 @@ const handleModal = () => {
             </h2>
           </div>
         </div>
+
+        <RuleCard picture="logo.svg" title=" Règles générales" />
 
         <div class="card bg-white rounded-lg shadow-lg overflow-hidden">
           <img
