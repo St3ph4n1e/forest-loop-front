@@ -2,15 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 #app {
   /* max-width: 1280px; */
   width: 100%;
   margin: 0 auto;
+  overflow: scroll;
   height: 100vh;
   padding: 2rem;
   font-weight: normal;
   background: url(../images/background.png) lightgray 50% / cover no-repeat;
 }
 
+html,
+body {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+}

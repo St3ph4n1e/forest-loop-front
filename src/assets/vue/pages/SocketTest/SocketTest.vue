@@ -150,10 +150,10 @@ onMounted(() => {
         @click="sendEvent"
         class="bg-yellow-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
-        Socket events
+        Socket event
       </button>
     </div>
   </section>
 </template>
 
-<style src="./Home.css" lang="css" scoped></style>
+<style src="./SocketTest.css" lang="css" scoped></style>
