@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import Modal from '../../components/Modal/Modal.vue'
 import Header from '../../components/Header/Header.vue'
 
 const router = useRouter()
