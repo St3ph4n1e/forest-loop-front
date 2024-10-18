@@ -6,14 +6,9 @@ import Header from '../../components/Header/Header.vue'
 
 const router = useRouter()
 const isLoading = ref(true)
-const showModal = ref(false)
 
 const goToWaitingArea = () => {
   router.push('/wait')
-}
-
-const handleModal = () => {
-  showModal.value = !showModal.value
 }
 
 onMounted(() => {
@@ -37,13 +32,6 @@ onMounted(() => {
         Commencer
       </button>
     </div>
-    <button class="btn" @click="handleModal">Modal</button>
-    <Modal
-      title="TITRE"
-      description="lorem"
-      :show-modal="showModal"
-      @close="handleModal"
-    />
   </section>
 </template>
 
