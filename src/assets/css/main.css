@@ -3,9 +3,11 @@
 @tailwind utilities;
 
 #app {
+  /* max-width: 1280px; */
   width: 100%;
   margin: 0 auto;
-  min-height: 100vh;
+  overflow: scroll;
+  height: 100vh;
   padding: 2rem;
   font-weight: normal;
   font-family: 'Press Start 2P', cursive;
@@ -15,7 +17,7 @@
 
 html,
 body {
+  overflow: hidden;
   height: 100%;
-  width: 100%;
   margin: 0;
 }

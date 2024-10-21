@@ -11,6 +11,50 @@ const goToWaitingArea = () => {
 }
 
 onMounted(() => {
+  // getData();
+
+  //********************* */
+  socket.on('test message', data => {
+    console.log(data)
+
+    message.value = data
+  })
+
+  socket.on('socket', data => {
+    console.log('socket')
+    message.value = 'sockets ' + ' ' + data
+  })
+
+  socket.on('events', data => {
+    console.log('events', data)
+    message.value = 'eventss ' + ' ' + data
+  })
+
+  socket.on('new room', rooms => {
+    console.log('new room', rooms)
+    message.value = 'rooms' + rooms
+  })
+
+  socket.on('join room', rooms => {
+    console.log('join room', rooms)
+    message.value = 'join rooms ' + rooms.toString()
+  })
+
+  socket.on('full room', () => {
+    console.log('full room')
+    message.value = 'full rooms '
+  })
+
+  socket.on('already in room', () => {
+    console.log('already in room')
+    message.value = 'already rooms '
+  })
+
+  socket.on('room does not exist', () => {
+    console.log('room does not exist')
+    message.value = 'not exist '
+  })
+
   setTimeout(() => {
     isLoading.value = false
   }, 3500)
