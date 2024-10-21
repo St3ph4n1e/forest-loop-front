@@ -103,6 +103,22 @@ onMounted(() => {
     message.value = 'not exist '
   })
 
+  socket.on('playerCoords', (data) => {
+    console.log('player coords:', data)
+    message.value = 'player coords: ' +data
+  })
+
+  socket.on('monsterCoords', (data) => {
+    console.log('monster coords:', data)
+    message.value = 'monster coords: ' +data
+  })
+
+  socket.on('playerDeath', (data) => {
+    console.log('player death:', data)
+    message.value = 'player death: ' + data
+  })
+
+
   setTimeout(() => {
     isLoading.value = false
   }, 3500)
