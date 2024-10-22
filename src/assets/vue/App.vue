@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineComponent } from 'vue';
 </script>
 
 <template>
@@ -7,5 +6,4 @@ import { defineComponent } from 'vue';
 </template>
 
 <style scoped>
-/* Ajoute ton style ici si nécessaire */
 </style>

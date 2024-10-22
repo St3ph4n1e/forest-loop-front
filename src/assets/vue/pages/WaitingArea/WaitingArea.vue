@@ -1,59 +1,79 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import Loader from '../../components/Loader.vue';
-import { useRouter } from 'vue-router';
-import 'animate.css';
+import { ref, onMounted } from 'vue'
+import Loader from '../../components/Loader.vue'
+import { useRouter } from 'vue-router'
+import 'animate.css'
+import Header from '@/assets/vue/components/Header/Header.vue'
 
-const router = useRouter();
-const isLoading = ref(false);
-const code = ref('');
-const isError = ref(false);
-const isCard = ref(false);
-const isButton = ref(true);
-const isMovedUp = ref(false);
+const router = useRouter()
+const isLoading = ref(false)
+const code = ref('')
+const isError = ref(false)
+const isCard = ref(false)
+const isButton = ref(true)
+const isMovedUp = ref(false)
 
 const goToGame = () => {
   if (code.value === '12345') {
-    isLoading.value = true;
+    isLoading.value = true
     setTimeout(() => {
-      isLoading.value = false;
-      router.push('/game');
-    }, 2000);
+      isLoading.value = false
+      router.push('/game')
+    }, 2000)
   }
   if (code.value !== '12345') {
-    isError.value = true;
+    isError.value = true
   }
-};
+}
 
 onMounted(() => {
   setTimeout(() => {
-    isMovedUp.value = true;
-    isCard.value = true;
-  }, 700);
-  isCard.value = false;
-  isButton.value = true;
-});
-
+    isMovedUp.value = true
+    isCard.value = true
+  }, 700)
+  isCard.value = false
+  isButton.value = true
+})
 </script>
 
 <template>
+  <Header></Header>
   <section id="waiting">
     <div v-if="isLoading" class="overlay"></div>
     <div :class="['title', { 'move-up': isMovedUp }]">
       <h1 class="text-6xl font-bold text-white">Forest Loop</h1>
       <h2 class="text-2xl mt-4 text-gray-300">Plongez dans l'aventure!</h2>
-      <button v-if="isButton" class="animate__animated animate__bounceOut bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <button
+        v-if="isButton"
+        class="animate__animated animate__bounceOut bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
         Commencer
       </button>
     </div>
 
-    <div v-if="isCard" class="waitingCard animate__animated animate__fadeInUpBig">
+    <div
+      v-if="isCard"
+      class="waitingCard animate__animated animate__fadeInUpBig"
+    >
       <div class="px-6 py-4">
         <div class="font-bold text-l text-white">Code de la partie</div>
         <label for="gamecode"></label>
-        <input v-model="code" type="text" id="gamecode" class="bg-gray-50 py-4 px-10 my-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-center" maxlength="5" placeholder="Entrez un code" required />
-        <div v-if="isError" class="errorMessage font-bold text-xs text-red-500">Veuillez réessayer avec un code valide</div>
-        <button @click="goToGame" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <input
+          v-model="code"
+          type="text"
+          id="gamecode"
+          class="bg-gray-50 py-4 px-10 my-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-center"
+          maxlength="5"
+          placeholder="Entrez un code"
+          required
+        />
+        <div v-if="isError" class="errorMessage font-bold text-xs text-red-500">
+          Veuillez réessayer avec un code valide
+        </div>
+        <button
+          @click="goToGame"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
           Valider
         </button>
       </div>
@@ -61,6 +81,5 @@ onMounted(() => {
     <Loader v-if="isLoading" />
   </section>
 </template>
-
 
 <style src="./WaitingArea.css" lang="css" scoped></style>
