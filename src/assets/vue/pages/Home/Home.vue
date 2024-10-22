@@ -27,9 +27,17 @@ const getData = async () => {
 //*********************** */
 const sendMessage = () => {
   // socket.emit('test message', { content: 'Hello from Vue!' })
-  socket.emit('socket')
+  // socket.emit('socket')
+  const coords = new Map();
+  coords.set("x", 100);
+  coords.set("y", 20);
+
+  socket.emit('playerCoords', coords)
 }
 
+const endGame = () => {
+  socket.emit('end game')
+}
 const joinGame = (party: string) => {
   console.log('we are here')
 
@@ -147,7 +155,7 @@ onMounted(() => {
         @click="sendMessage"
         class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
-        Socket
+        Player coords
       </button>
       <button
         @click="joinGame(party)"
@@ -167,6 +175,9 @@ onMounted(() => {
         class="bg-yellow-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Socket events
+      </button>
+      <button @click="endGame">
+        End Game
       </button>
     </div>
   </section>
