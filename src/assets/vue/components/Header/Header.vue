@@ -12,6 +12,11 @@ const goToRules = () => {
   router.push('/rules')
 }
 
+/*
+  const goToWait = () => {
+  router.push('/wait')
+}*/
+
 const currentRoute = computed(() => router.currentRoute.value.path)
 
 const isActive = (routePath: string) => {
@@ -26,20 +31,27 @@ const isActive = (routePath: string) => {
     </div>
     <nav>
       <ul>
-        <li
+        <li class="animate__animated animate__fadeInDown"
           v-if="currentRoute !== '/'"
           :class="isActive('Home')"
           @click="goHome"
         >
           Accueil
         </li>
-        <li
-          v-if="currentRoute === '/'"
+        <li class="animate__animated animate__fadeInDown"
+          v-if="currentRoute === '/' || currentRoute === '/wait' "
           :class="isActive('Rules')"
           @click="goToRules"
         >
           Règles du jeu
         </li>
+        <!--<li class="animate__animated animate__fadeInDown"
+            v-if="currentRoute === '/rules' "
+            :class="isActive('WaitingArea')"
+            @click="goToWait"
+        >
+          Salle d'attente
+        </li>-->
       </ul>
     </nav>
   </header>
