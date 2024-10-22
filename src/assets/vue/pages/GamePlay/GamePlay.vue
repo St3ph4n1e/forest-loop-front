@@ -41,11 +41,12 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="test" >
-
-  </div>
   <div class="container" @click="showNextRule">
     <div class="left-pane">
+      <div class="carte">
+
+        </div>
+
       <div class="grid-map">
         <div
           class="grid-case"
@@ -57,8 +58,7 @@ onUnmounted(() => {
       </div>
     </div>
     <div class="right-pane">
-      <h2 class="title">Règle</h2>
-      <div class="flex flex-col w-full overflow-y-scroll ">
+      <h2 class="title">Règles</h2>
         <div
           class="card"
           v-for="n in 5"
@@ -72,7 +72,7 @@ onUnmounted(() => {
             </div>
           </div>
         </div>
-      </div>
+
 
     </div>
   </div>
