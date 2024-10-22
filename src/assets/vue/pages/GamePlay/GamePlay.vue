@@ -41,6 +41,9 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <div class="test" >
+
+  </div>
   <div class="container" @click="showNextRule">
     <div class="left-pane">
       <div class="grid-map">
@@ -55,19 +58,22 @@ onUnmounted(() => {
     </div>
     <div class="right-pane">
       <h2 class="title">Règle</h2>
-      <div
-        class="card"
-        v-for="n in 5"
-        :key="n"
-        :style="{ '--rule-index': n }"
-        v-show="n <= visibleRules">
-        <div class="face face1">
-          <div class="content">
-            <span class="stars"></span>
-            <p class="gamer-font">Si il y a un gros caillou rouge à gauche de l'écran, aller à droite et ne pas aller à gauche.</p>
+      <div class="flex flex-col w-full overflow-y-scroll ">
+        <div
+          class="card"
+          v-for="n in 5"
+          :key="n"
+          :style="{ '--rule-index': n }"
+          v-show="n <= visibleRules">
+          <div class="face face1">
+            <div class="content">
+              <span class="stars"></span>
+              <p class="gamer-font">Si il y a un gros caillou rouge à gauche de l'écran, aller à droite et ne pas aller à gauche.</p>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>

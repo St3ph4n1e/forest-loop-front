@@ -1,0 +1,118 @@
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.modal-header h2 {
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+  color: white;
+}
+
+.close-btn {
+  cursor: pointer;
+  font-size: 24px;
+  color: #FFFFFF;
+  /* margin-left: 20px; */
+}
+
+.fl-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.modal-body {
+  padding: 20px;
+  border-radius: 16px;
+  width: 780px;
+  height: 680px;
+  background: linear-gradient(
+    92deg,
+    rgba(253, 203, 110, 0.6) 0%,
+    rgba(253, 203, 110, 0.4) 100.82%
+  );
+  backdrop-filter: blur(1px);
+}
+
+.fade-out {
+  opacity: 0;
+  transform: scale(0.9) rotate(5deg);
+  transition:
+    opacity 5s ease,
+    transform 5s ease;
+}
+
+.fade-in {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  transition:
+    opacity 5s ease,
+    transform 5s ease;
+}
+
+.modal-content {
+  z-index: 1001;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-image: url('../../../images/parchemin.png');
+  background-size: cover;
+  background-position: center;
+  color: #333;
+  min-height: 460px;
+  height: 100%;
+}
+
+.btn {
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 0.8rem;
+}
+
+.btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  margin: 3%;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+}
+
+.btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+/* .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(35, 35, 35, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: 500;
+} */
