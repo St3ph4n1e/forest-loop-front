@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import Loader from '../../components/Loader.vue'
 import { useRouter } from 'vue-router'
 import 'animate.css'
+import Header from '@/assets/vue/components/Header/Header.vue'
 
 const router = useRouter()
 const isLoading = ref(false)
@@ -36,6 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <Header></Header>
   <section id="waiting">
     <div v-if="isLoading" class="overlay"></div>
     <div :class="['title', { 'move-up': isMovedUp }]">
