@@ -12,11 +12,6 @@ const goToRules = () => {
   router.push('/rules')
 }
 
-/*
-  const goToWait = () => {
-  router.push('/wait')
-}*/
-
 const currentRoute = computed(() => router.currentRoute.value.path)
 
 const isActive = (routePath: string) => {
@@ -27,31 +22,24 @@ const isActive = (routePath: string) => {
 <template>
   <header class="navbar">
     <div class="logo" @click="goHome">
-      <img src="../../../images/logo.svg" alt="Logo" />
+      <img src="../../../images/logo.png" alt="Logo" />
     </div>
     <nav>
       <ul>
         <li class="animate__animated animate__fadeInDown"
-          v-if="currentRoute !== '/'"
-          :class="isActive('Home')"
-          @click="goHome"
+            v-if="currentRoute !== '/'"
+            :class="isActive('Home')"
+            @click="goHome"
         >
           Accueil
         </li>
-        <li class="animate__animated animate__fadeInDown"
-          v-if="currentRoute === '/' || currentRoute === '/wait' "
+        <li class="sm:w-15 animate__animated animate__fadeInDown"
+            v-if="currentRoute === '/' || currentRoute === '/wait' "
           :class="isActive('Rules')"
           @click="goToRules"
         >
           Règles du jeu
         </li>
-        <!--<li class="animate__animated animate__fadeInDown"
-            v-if="currentRoute === '/rules' "
-            :class="isActive('WaitingArea')"
-            @click="goToWait"
-        >
-          Salle d'attente
-        </li>-->
       </ul>
     </nav>
   </header>

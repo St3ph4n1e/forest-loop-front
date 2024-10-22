@@ -22,7 +22,7 @@ const handleModal = () => {
   <section class="rules p-10">
     <div v-if="!showModal" class="main-card animate__animated animate__fadeIn">
       <div class="title text-white">
-        <h1>Guide forestier</h1>
+        <h1 class="whitespace-nowrap" >Guide forestier</h1>
       </div>
       <div class="cards grid grid-cols-1 md:grid-cols-4 gap-8 p-12">
         <RuleCard
