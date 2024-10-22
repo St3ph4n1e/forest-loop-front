@@ -1,39 +1,47 @@
-@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-/* Body styling */
-body {
-    font-family: "Righteous", cursive;
-}
-
 /* Container styling */
 .container {
     display: flex;
+    flex-direction: row; /* Change to row for horizontal layout */
     height: calc(100vh - 4rem);
-    gap: 60px;
+    gap: 20px;
 }
 
 /* Left pane styling */
 .left-pane {
+    width: 700px;
+    height: 700px;
     flex: 2;
     position: relative;
-    opacity: 0.9;
     backdrop-filter: blur(50px);
     border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 /* Grid map styling */
 .grid-map {
-    width: 600px;
-    height: 600px;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.9;
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+    background-color: rgba(0, 0, 0);
     backdrop-filter: blur(50px);
     border-radius: 30px;
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 0.02em;
+    padding: 22px;
+}
+
+/* Grid case styling */
+.grid-case {
+    width: calc(100% - 2px); /* Reduce width by 2 units */
+    padding-top: calc(100% - 2px); /* Reduce height by 2 units */
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #fff;
+    border-radius: 0; /* Make them squared */
+    position: relative;
 }
 
 /* Right pane styling */
@@ -108,11 +116,47 @@ body {
     font-family: "Press Start 2P", cursive;
 }
 
+/* Red point styling */
+.red-point {
+    width: 20%; /* Make the red point smaller */
+    height: 20%; /* Make the red point smaller */
+    background-color: red;
+    border-radius: 50%;
+    position: absolute; /* Ensure it doesn't affect the size of the grid case */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the red point */
+}
+
 /* Media query for responsive design */
 @media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .left-pane, .right-pane {
+        flex: none;
+        width: 100%;
+    }
+
+    .grid-map {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+    }
+
+    .grid-case {
+        padding-top: 50%;
+    }
+
+    .title {
+        font-size: 1.2rem;
+    }
+
     .card {
         width: 100%;
         height: auto;
+        transform: scale(1);
     }
 }
 
