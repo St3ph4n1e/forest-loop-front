@@ -6,5 +6,4 @@
 </template>
 
 <style scoped>
-/* Ajoute ton style ici si nécessaire */
 </style>

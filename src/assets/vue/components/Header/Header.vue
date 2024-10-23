@@ -22,11 +22,12 @@ const isActive = (routePath: string) => {
 <template>
   <header class="navbar">
     <div class="logo" @click="goHome">
-      <img src="../../../images/logo.svg" alt="Logo" />
+      <img src="../../../images/logo.png" alt="Logo" />
     </div>
     <nav>
       <ul>
         <li
+          class="animate__animated animate__fadeInDown"
           v-if="currentRoute !== '/'"
           :class="isActive('Home')"
           @click="goHome"
@@ -34,7 +35,8 @@ const isActive = (routePath: string) => {
           Accueil
         </li>
         <li
-          v-if="currentRoute === '/'"
+          class="sm:w-15 animate__animated animate__fadeInDown"
+          v-if="currentRoute !== '/rules'"
           :class="isActive('Rules')"
           @click="goToRules"
         >
