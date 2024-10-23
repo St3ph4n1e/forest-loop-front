@@ -15,18 +15,7 @@ onMounted(() => {
     isLoading.value = false
   }, 3500)
 
-  const apiUrl = import.meta.env.VUE_APP_API_URL;
-  console.log("********************")
-  console.log(apiUrl)
-  console.log(import.meta.env.VITE_SOCKET_URL)
-  console.log("********************")
-
-  /*
-    VITE_SOCKET_URL="http://"
-
-    # import.meta.env.VITE_SOCKET_URL
-
-   */
+  const socketUrl = import.meta.env.VITE_SOCKET_URL;
 
 })
 </script>
