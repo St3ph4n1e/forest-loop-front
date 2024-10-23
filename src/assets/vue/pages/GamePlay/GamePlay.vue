@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue'
+import socket from '@/socket-io/socket'
 
 const visibleRules = ref(0);
 const gridSize = { rows: 11, cols: 11 };
@@ -10,9 +11,9 @@ const redPointPosition = ref({ x: 0, y: 0 });
 
 const showNextRule = () => {
   if (visibleRules.value < 5) {
-    visibleRules.value += 1;
+    visibleRules.value += 1
   }
-};
+}
 
 const moveRedPoint = (event) => {
   switch (event.key) {
@@ -56,8 +57,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', moveRedPoint);
-});
+  // window.removeEventListener('keydown', moveRedPoint)
+  socket.off('player coords')
+})
 </script>
 
 <template>
@@ -95,5 +97,4 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style src="./GamePlay.css" lang="css" scoped>
-</style>
+<style src="./GamePlay.css" lang="css" scoped></style>
