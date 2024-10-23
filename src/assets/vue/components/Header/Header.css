@@ -7,16 +7,25 @@
   color: white;
 }
 
+.header-game {
+  position: absolute;
+  z-index: 900;
+  top: 0;
+  left: 0;
+
+  .logo img {
+    height: 50px;
+    width: 50px;
+  }
+}
+
 .logo img {
   height: 40px;
   width: 40px;
   cursor: pointer;
-  transition:
-          transform 0.3s;
+  transition: transform 0.3s;
   &:hover {
-    transform: scale(1.5)
-
-  ;
+    transform: scale(1.5);
   }
 }
 

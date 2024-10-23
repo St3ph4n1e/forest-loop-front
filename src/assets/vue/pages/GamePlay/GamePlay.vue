@@ -47,8 +47,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <Header />
-  <div class="container" @click="showNextRule">
+  <Header> </Header>
+  <div class="container">
     <div class="left-pane">
       <div class="carte"></div>
 
@@ -63,7 +63,7 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-    <div class="right-pane">
+    <div class="right-pane" @click="showNextRule">
       <h2 class="title">Règles</h2>
       <div
         class="card"
