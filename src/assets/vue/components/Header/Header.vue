@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import socket from '@/socket-io/socket'
 
 const router = useRouter()
 
@@ -17,18 +18,26 @@ const currentRoute = computed(() => router.currentRoute.value.path)
 const isActive = (routePath: string) => {
   return currentRoute.value === routePath ? 'active' : ''
 }
+
+const endGame = () => {
+  socket.emit('end game')
+  router.push('/')
+}
 </script>
 
 <template>
   <header class="navbar">
-    <div class="logo" @click="goHome">
+    <div v-if="currentRoute !== '/game'" class="logo" @click="goHome">
       <img src="../../../images/logo.png" alt="Logo" />
+    </div>
+    <div v-else class="logo" @click="endGame">
+      <img src="../../../images/logout.png" alt="Logo" />
     </div>
     <nav>
       <ul>
         <li
           class="animate__animated animate__fadeInDown"
-          v-if="currentRoute !== '/'"
+          v-if="currentRoute !== '/' && currentRoute !== '/game'"
           :class="isActive('Home')"
           @click="goHome"
         >
@@ -36,11 +45,11 @@ const isActive = (routePath: string) => {
         </li>
         <li
           class="sm:w-15 animate__animated animate__fadeInDown"
-          v-if="currentRoute !== '/rules'"
+          v-if="currentRoute !== '/rules' && currentRoute !== '/game'"
           :class="isActive('Rules')"
           @click="goToRules"
         >
-          Règles du jeu
+          Forest Guide
         </li>
       </ul>
     </nav>

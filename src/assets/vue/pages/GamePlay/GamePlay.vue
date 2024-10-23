@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import socket from '@/socket-io/socket'
+import Header from '../../components/Header/Header.vue'
 
 const visibleRules = ref(0)
 const gridSize = 11
@@ -46,6 +47,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <Header />
   <div class="container" @click="showNextRule">
     <div class="left-pane">
       <div class="carte"></div>
