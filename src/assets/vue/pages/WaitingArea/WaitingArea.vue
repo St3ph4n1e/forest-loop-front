@@ -21,17 +21,11 @@ const goToGame = () => {
     return
   }
 
-  /*isLoading.value = true
+  isLoading.value = true
   setTimeout(() => {
     isLoading.value = false
-    router.push('/game')
-  }, 1500)*/
-
-
-  socket.emit('join game', code.value)
-
-
-  isLoading.value = true
+    socket.emit('join game', code.value)
+  }, 1500)
 }
 
 const initValue = () => {
