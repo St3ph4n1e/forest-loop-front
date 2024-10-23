@@ -16,9 +16,7 @@ const isButton = ref(true)
 const isMovedUp = ref(false)
 
 const goToGame = () => {
-  isError.value = false
-  errorMessage.value = ''
-
+  console.log(code.value)
   if (!code.value) {
     errorMessage.value = 'Veuillez entrer un code valide'
     isError.value = true
@@ -26,34 +24,15 @@ const goToGame = () => {
   }
 
   isLoading.value = true
-
-  socket.emit('join game', code.value)
-
-  socket.once('join response', response => {
-    if (response.success) {
-      setTimeout(() => {
-        isLoading.value = false
-        router.push('/game')
-      }, 500)
-    } else {
-      errorMessage.value = response.message
-      isError.value = true
-      setTimeout(() => {
-        isLoading.value = false
-      }, 500)
-    }
-  })
-}
-
-const initGame = () => {
-  socket.emit('init game')
-  console.log('init')
+  setTimeout(() => {
+    isLoading.value = false
+    socket.emit('join game', code.value)
+  }, 1500)
 }
 
 const initValue = () => {
-  isError.value = false
   errorMessage.value = ''
-
+  code.value = ''
   isError.value = false
 }
 
@@ -62,10 +41,39 @@ onMounted(() => {
     isMovedUp.value = true
     isCard.value = true
   }, 700)
+
   isCard.value = false
   isButton.value = true
+
+  socket.on('full room', () => {
+    console.log('full room')
+    errorMessage.value = 'La room est pleine.'
+    isError.value = true
+    isLoading.value = false
+  })
+
+  socket.on('already in room', () => {
+    console.log('already in room')
+    errorMessage.value = 'Vous êtes déjà dans une room.'
+    isError.value = true
+    isLoading.value = false
+  })
+
+  socket.on('room does not exist', () => {
+    console.log('room does not exist')
+    errorMessage.value = 'Cette room n\'existe pas.'
+    isError.value = true
+    isLoading.value = false
+  })
+
+  socket.on('join room', (room) => {
+    console.log('join room', room)
+    isLoading.value = false
+    router.push('/game')
+  })
 })
 </script>
+
 
 <template>
   <Header></Header>
@@ -107,13 +115,6 @@ onMounted(() => {
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Valider
-        </button>
-
-        <button
-          @click="initGame()"
-          class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Init
         </button>
       </div>
     </div>
