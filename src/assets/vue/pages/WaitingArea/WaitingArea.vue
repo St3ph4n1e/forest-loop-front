@@ -3,26 +3,58 @@ import { ref, onMounted } from 'vue'
 import Loader from '../../components/Loader.vue'
 import { useRouter } from 'vue-router'
 import 'animate.css'
+import Header from '@/assets/vue/components/Header/Header.vue'
+import socket from '@/socket-io/socket'
 
 const router = useRouter()
 const isLoading = ref(false)
 const code = ref('')
 const isError = ref(false)
+const errorMessage = ref('')
 const isCard = ref(false)
 const isButton = ref(true)
 const isMovedUp = ref(false)
 
 const goToGame = () => {
-  if (code.value === '12345') {
-    isLoading.value = true
-    setTimeout(() => {
-      isLoading.value = false
-      router.push('/game')
-    }, 2000)
-  }
-  if (code.value !== '12345') {
+  isError.value = false
+  errorMessage.value = ''
+
+  if (!code.value) {
+    errorMessage.value = 'Veuillez entrer un code valide'
     isError.value = true
+    return
   }
+
+  isLoading.value = true
+
+  socket.emit('join game', code.value)
+
+  socket.once('join response', response => {
+    if (response.success) {
+      setTimeout(() => {
+        isLoading.value = false
+        router.push('/game')
+      }, 500)
+    } else {
+      errorMessage.value = response.message
+      isError.value = true
+      setTimeout(() => {
+        isLoading.value = false
+      }, 500)
+    }
+  })
+}
+
+const initGame = () => {
+  socket.emit('init game')
+  console.log('init')
+}
+
+const initValue = () => {
+  isError.value = false
+  errorMessage.value = ''
+
+  isError.value = false
 }
 
 onMounted(() => {
@@ -36,6 +68,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <Header></Header>
   <section id="waiting">
     <div v-if="isLoading" class="overlay"></div>
     <div :class="['title', { 'move-up': isMovedUp }]">
@@ -66,13 +99,21 @@ onMounted(() => {
           required
         />
         <div v-if="isError" class="errorMessage font-bold text-xs text-red-500">
-          Veuillez réessayer avec un code valide
+          {{ errorMessage }}
         </div>
         <button
-          @click="goToGame"
+          @click="goToGame()"
+          @blur="initValue"
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Valider
+        </button>
+
+        <button
+          @click="initGame()"
+          class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Init
         </button>
       </div>
     </div>
