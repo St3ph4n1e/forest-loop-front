@@ -36,6 +36,11 @@ const initValue = () => {
   isError.value = false
 }
 
+const initGame = () => {
+  socket.emit('init game')
+  console.log('init')
+}
+
 onMounted(() => {
   setTimeout(() => {
     isMovedUp.value = true
@@ -115,6 +120,13 @@ onMounted(() => {
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Valider
+        </button>
+
+        <button
+          @click="initGame()"
+          class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Init
         </button>
       </div>
     </div>
