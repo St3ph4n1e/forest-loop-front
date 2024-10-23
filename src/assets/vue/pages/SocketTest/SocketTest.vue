@@ -51,6 +51,10 @@ const initGame = () => {
   message.value = 'init'
 }
 
+const endGame = () => {
+  socket.emit('end game')
+}
+
 const sendEvent = () => {
   socket.emit('events', 'bonjour tout le monde')
   console.log('events')

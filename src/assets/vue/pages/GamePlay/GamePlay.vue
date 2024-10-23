@@ -1,82 +1,87 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue'
+import socket from '@/socket-io/socket'
 
-const visibleRules = ref(0);
-const gridSize = 11;
-const redPointPosition = ref(Math.floor(gridSize * gridSize / 2));
+const visibleRules = ref(0)
+const gridSize = 11
+const redPointPosition = ref({})
 
 const showNextRule = () => {
   if (visibleRules.value < 5) {
-    visibleRules.value += 1;
+    visibleRules.value += 1
   }
-};
+}
 
-const moveRedPoint = (event: KeyboardEvent) => {
-  const row = Math.floor(redPointPosition.value / gridSize);
-  const col = redPointPosition.value % gridSize;
+// const moveRedPoint = (event: KeyboardEvent) => {
+//   const row = Math.floor(redPointPosition.value / gridSize)
+//   const col = redPointPosition.value % gridSize
 
-  switch (event.key) {
-    case 'ArrowUp':
-      if (row > 0) redPointPosition.value -= gridSize;
-      break;
-    case 'ArrowDown':
-      if (row < gridSize - 1) redPointPosition.value += gridSize;
-      break;
-    case 'ArrowLeft':
-      if (col > 0) redPointPosition.value -= 1;
-      break;
-    case 'ArrowRight':
-      if (col < gridSize - 1) redPointPosition.value += 1;
-      break;
-  }
-};
+//   switch (event.key) {
+//     case 'ArrowUp':
+//       if (row > 0) redPointPosition.value -= gridSize
+//       break
+//     case 'ArrowDown':
+//       if (row < gridSize - 1) redPointPosition.value += gridSize
+//       break
+//     case 'ArrowLeft':
+//       if (col > 0) redPointPosition.value -= 1
+//       break
+//     case 'ArrowRight':
+//       if (col < gridSize - 1) redPointPosition.value += 1
+//       break
+//   }
+// }
 
 onMounted(() => {
-  window.addEventListener('keydown', moveRedPoint);
-});
+  // window.addEventListener('keydown', moveRedPoint);
+  socket.on('player coords', ({ x, y }) => {
+    redPointPosition.value = { x, y }
+  })
+})
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', moveRedPoint);
-});
+  // window.removeEventListener('keydown', moveRedPoint)
+  socket.off('player coords')
+})
 </script>
 
 <template>
   <div class="container" @click="showNextRule">
     <div class="left-pane">
-      <div class="carte">
-
-        </div>
+      <div class="carte"></div>
 
       <div class="grid-map">
         <div
           class="grid-case"
           v-for="n in gridSize * gridSize"
           :key="n"
-          :id="'grid-' + n">
+          :id="'grid-' + n"
+        >
           <div v-if="n - 1 === redPointPosition" class="red-point"></div>
         </div>
       </div>
     </div>
     <div class="right-pane">
       <h2 class="title">Règles</h2>
-        <div
-          class="card"
-          v-for="n in 5"
-          :key="n"
-          :style="{ '--rule-index': n }"
-          v-show="n <= visibleRules">
-          <div class="face face1">
-            <div class="content">
-              <span class="stars"></span>
-              <p class="gamer-font">Si il y a un gros caillou rouge à gauche de l'écran, aller à droite et ne pas aller à gauche.</p>
-            </div>
+      <div
+        class="card"
+        v-for="n in 5"
+        :key="n"
+        :style="{ '--rule-index': n }"
+        v-show="n <= visibleRules"
+      >
+        <div class="face face1">
+          <div class="content">
+            <span class="stars"></span>
+            <p class="gamer-font">
+              Si il y a un gros caillou rouge à gauche de l'écran, aller à
+              droite et ne pas aller à gauche.
+            </p>
           </div>
         </div>
-
-
+      </div>
     </div>
   </div>
 </template>
 
-<style src="./GamePlay.css" lang="css" scoped>
-</style>
+<style src="./GamePlay.css" lang="css" scoped></style>
