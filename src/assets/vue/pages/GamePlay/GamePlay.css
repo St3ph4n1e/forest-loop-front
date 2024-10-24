@@ -55,11 +55,28 @@
 
 /* Grid case styling */
 .grid-case {
-  width: calc(100% - 2px); /* Reduce width by 2 units */
-  /*padding-top: calc(100% - 2px); /* Reduce height by 2 units */
-  border: 2px solid rgb(192, 179, 157);
-  position: relative;
+    width: calc(100% - 2px); /* Reduce width by 2 units */
+    /*padding-top: calc(100% - 2px); /* Reduce height by 2 units */
+    border: 2px solid rgb(192, 179, 157);
+    border-radius: 0; /* Make them squared */
+    position: relative;
+    overflow: auto;
 }
+.red-point {
+    background-color: red;
+}
+
+/* Red point styling */
+/*.red-point {
+    width: 20%;
+    height: 20%;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}*/
 
 /* Title styling */
 .title {
@@ -136,17 +153,17 @@
   font-family: 'Press Start 2P', cursive;
 }
 
-/* Red point styling */
+/* Red point styling
 .red-point {
-  width: 20%; /* Make the red point smaller */
-  height: 20%; /* Make the red point smaller */
+  width: 20%; /* Make the red point smaller
+  height: 20%; /* Make the red point smaller
   background-color: red;
   border-radius: 50%;
-  position: absolute; /* Ensure it doesn't affect the size of the grid case */
+  position: absolute; /* Ensure it doesn't affect the size of the grid case
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Center the red point */
-}
+  transform: translate(-50%, -50%); /* Center the red point
+}*/
 
 /* Ensure minimum size for cards when there are less than three */
 .right-pane .card {
