@@ -15,8 +15,6 @@ onMounted(() => {
     isLoading.value = false
   }, 3500)
 
-  const socketUrl = import.meta.env.VITE_SOCKET_URL;
-
 })
 </script>
 
