@@ -56,7 +56,7 @@ onMounted(() => {
             :class="isActive('Rules')"
             @click="goToRules"
           >
-            Forest Guide
+            Forest Guide.
           </li>
           <li
             class="sm:w-15 animate__animated animate__fadeInDown"
