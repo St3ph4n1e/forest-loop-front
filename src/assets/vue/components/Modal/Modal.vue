@@ -3,9 +3,12 @@ const emit = defineEmits(['close'])
 defineProps({
   title: {
     type: String,
-    default: null,
+    default: '',
   },
-
+  description: {
+    type: String,
+    default: '',
+  },
   showModal: {
     type: Boolean,
     default: false,
@@ -30,7 +33,8 @@ const closeModal = () => {
         <span @click="closeModal" class="close-btn">&times;</span>
       </div>
       <div class="modal-content">
-        <slot name="description"></slot>
+        <p v-if="description">{{ description }}</p>
+        <slot v-else> </slot>
       </div>
       <footer class="modal-footer">
         <button class="btn" @click="closeModal">C'est Compris</button>

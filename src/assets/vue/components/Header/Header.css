@@ -8,6 +8,7 @@
 }
 
 .header-game {
+  width: 100%;
   position: absolute;
   z-index: 900;
   top: 0;
@@ -16,6 +17,14 @@
   .logo img {
     height: 50px;
     width: 50px;
+  }
+
+  .header-sprite {
+    cursor: pointer;
+    transition: transform 0.3s;
+    &:hover {
+      transform: scale(1.5);
+    }
   }
 }
 
@@ -42,8 +51,8 @@ nav li {
   position: relative;
   padding: 5px 10px;
   transition:
-    color 0.3s,
-    transform 0.3s;
+          color 0.3s,
+          transform 0.3s;
 }
 
 nav li:hover {

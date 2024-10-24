@@ -1,6 +1,7 @@
 export const gameRules = [{
   titre: 'Règles générales',
-  description:'siu',
+  description:'',
+  component:'RuleContent'
 },
 /* {
     titre: 'Carte' ,
@@ -11,7 +12,8 @@ export const gameRules = [{
     description: 'siu',
   },*/
   {
-    titre: 'Sprites' ,
-    description: 'siu',
+    titre: 'Végétations' ,
+    description: '',
+    component:'SpriteContent'
   }
 ]

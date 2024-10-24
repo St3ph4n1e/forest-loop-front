@@ -4,13 +4,13 @@ import Header from '../../components/Header/Header.vue'
 import RuleCard from '../../components/RuleCard/RuleCard.vue'
 import { ref } from 'vue'
 import { gameRules } from './rules.const'
-//import SpriteContent from '@/assets/vue/components/SpriteContent/SpriteContent.vue'
-//import RuleContent from '@/assets/vue/components/RuleContent/RuleContent.vue'
+import SpriteContent from '@/assets/vue/components/SpriteContent/SpriteContent.vue'
+import RuleContent from '@/assets/vue/components/RuleContent/RuleContent.vue'
 
 
 const showModal = ref(false)
-const selectedRule = ref({ titre: '', description: '' })
-const openModalWithRule = (rule: { titre: string; description: string }) => {
+const selectedRule = ref({ titre: '', description: '', component: '' })
+const openModalWithRule = (rule: { titre: string; description: string; component: string; }) => {
   selectedRule.value = rule
   showModal.value = true
 }
@@ -38,17 +38,23 @@ const handleModal = () => {
       </div>
       <h1 class="text-white text-lg">Séléctionne une option</h1>
     </div>
+
     <Modal
       class="animate__animated animate__animated animate__fadeIn"
       :title="selectedRule.titre"
       :show-modal="showModal"
       @close="handleModal"
-    > <template v-if="selectedRule.description">
-      {{ selectedRule.description}}
-    </template>
-      <template v-else>
-        <RuleCard title="gshsshf" picture="logo.png"></RuleCard>
-      </template>
+    >
+      <div class="modal-content">
+        <div class="scrollable-content">
+          <template v-if="selectedRule.component == 'RuleContent'">
+            <RuleContent />
+          </template>
+          <template v-if="selectedRule.component == 'SpriteContent'">
+            <SpriteContent />
+          </template>
+        </div>
+      </div>
     </Modal>
   </section>
 </template>
