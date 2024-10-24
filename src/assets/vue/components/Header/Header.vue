@@ -2,9 +2,11 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import socket from '@/socket-io/socket'
+import Modal from '../Modal/Modal.vue'
+import RuleCard from '../RuleCard/RuleCard.vue'
 
 const router = useRouter()
-// const showModal = ref(false)
+const showModal = ref(false)
 
 const goHome = () => {
   router.push('/')
@@ -22,6 +24,10 @@ const isActive = (routePath: string) => {
 
 const endGame = () => {
   socket.emit('end game')
+}
+
+const handleModal = () => {
+  showModal.value = !showModal.value
 }
 
 onMounted(() => {
@@ -56,13 +62,13 @@ onMounted(() => {
             :class="isActive('Rules')"
             @click="goToRules"
           >
-            Forest Guide.
+            Forest Guide
           </li>
           <li
             class="sm:w-15 animate__animated animate__fadeInDown"
             v-if="currentRoute === '/game'"
             :class="isActive('Game')"
-            @click="showModal"
+            @click="handleModal"
           >
             <img
               class="header-sprite"
@@ -73,6 +79,9 @@ onMounted(() => {
         </ul>
       </nav>
     </header>
+    <Modal title="Sprites" :show-modal="showModal" @close="handleModal">
+      <RuleCard picture="logo.svg" title="logo" />
+    </Modal>
   </section>
 </template>
 

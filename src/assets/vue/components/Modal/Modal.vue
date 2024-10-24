@@ -3,11 +3,11 @@ const emit = defineEmits(['close'])
 defineProps({
   title: {
     type: String,
-    default: null,
+    default: '',
   },
   description: {
     type: String,
-    default: null,
+    default: '',
   },
   showModal: {
     type: Boolean,
