@@ -4,6 +4,9 @@ import Header from '../../components/Header/Header.vue'
 import RuleCard from '../../components/RuleCard/RuleCard.vue'
 import { ref } from 'vue'
 import { gameRules } from './rules.const'
+//import SpriteContent from '@/assets/vue/components/SpriteContent/SpriteContent.vue'
+//import RuleContent from '@/assets/vue/components/RuleContent/RuleContent.vue'
+
 
 const showModal = ref(false)
 const selectedRule = ref({ titre: '', description: '' })
@@ -24,11 +27,11 @@ const handleModal = () => {
       <div class="title text-white">
         <h1 class="whitespace-nowrap">Guide forestier</h1>
       </div>
-      <div class="cards grid grid-cols-1 md:grid-cols-4 gap-8 p-12">
+      <div class="cards grid grid-cols-1 md:grid-cols-2 gap-8 p-12">
         <RuleCard
           v-for="(rule, index) in gameRules"
           :key="index"
-          picture="logo.svg"
+          picture="RulesIcons/Mushroom.png"
           :title="rule.titre"
           @click="openModalWithRule(rule)"
         />
@@ -38,10 +41,15 @@ const handleModal = () => {
     <Modal
       class="animate__animated animate__animated animate__fadeIn"
       :title="selectedRule.titre"
-      :description="selectedRule.description"
       :show-modal="showModal"
       @close="handleModal"
-    />
+    > <template v-if="selectedRule.description">
+      {{ selectedRule.description}}
+    </template>
+      <template v-else>
+        <RuleCard title="gshsshf" picture="logo.png"></RuleCard>
+      </template>
+    </Modal>
   </section>
 </template>
 

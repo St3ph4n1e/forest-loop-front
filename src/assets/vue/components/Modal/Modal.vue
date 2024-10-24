@@ -5,10 +5,7 @@ defineProps({
     type: String,
     default: null,
   },
-  description: {
-    type: String,
-    default: null,
-  },
+
   showModal: {
     type: Boolean,
     default: false,
@@ -33,7 +30,7 @@ const closeModal = () => {
         <span @click="closeModal" class="close-btn">&times;</span>
       </div>
       <div class="modal-content">
-        <p>{{ description }}</p>
+        <slot name="description"></slot>
       </div>
       <footer class="modal-footer">
         <button class="btn" @click="closeModal">C'est Compris</button>

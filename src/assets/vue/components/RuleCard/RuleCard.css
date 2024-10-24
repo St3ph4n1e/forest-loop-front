@@ -1,0 +1,7 @@
+.custom-image {
+    max-height: 50%;
+    max-width: 50%;
+    width: 200px;
+    object-fit: contain;
+    display: block;
+}
