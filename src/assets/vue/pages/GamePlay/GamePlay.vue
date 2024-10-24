@@ -2,38 +2,16 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import socket from '@/socket-io/socket'
 import Header from '../../components/Header/Header.vue'
+import type { GridCase } from '../../types/gridCase'
 
 const rules = ref([])
 //const visibleRules = ref(30);
 const gridSize = { rows: 11, cols: 11 }
 const centerX = Math.floor(gridSize.cols / 2)
 const centerY = Math.floor(gridSize.rows / 2)
-const gridCases = ref([])
+const gridCases = ref<GridCase[]>([])
 const redPointPosition = ref({ x: 0, y: 0 })
 const isModalOpen = ref(false)
-
-//const showNextRule = () => {
-// if (visibleRules.value < 5) {
-//  visibleRules.value += 1
-//}
-//}
-
-const moveRedPoint = event => {
-  switch (event.key) {
-    case 'ArrowUp':
-      if (redPointPosition.value.y < centerY) redPointPosition.value.y += 1
-      break
-    case 'ArrowDown':
-      if (redPointPosition.value.y > -centerY) redPointPosition.value.y -= 1
-      break
-    case 'ArrowLeft':
-      if (redPointPosition.value.x > -centerX) redPointPosition.value.x -= 1
-      break
-    case 'ArrowRight':
-      if (redPointPosition.value.x < centerX) redPointPosition.value.x += 1
-      break
-  }
-}
 
 onMounted(() => {
   const tempGridCases = []
@@ -45,8 +23,6 @@ onMounted(() => {
     }
   }
   gridCases.value = tempGridCases
-
-  window.addEventListener('keydown', moveRedPoint)
 
   socket.on('player coords', ({ x, y }) => {
     redPointPosition.value = { x, y }
@@ -89,7 +65,7 @@ const toggleModal = (isOpen: boolean) => {
         ></div>
       </div>
     </div>
-    <div class="right-pane" @click="showNextRule">
+    <div class="right-pane">
       <h2 class="title">Règles</h2>
       <div
         class="card"
