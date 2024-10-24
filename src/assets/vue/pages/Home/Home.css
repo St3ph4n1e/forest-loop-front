@@ -28,18 +28,18 @@
     animation: fadeIn 3s forwards;
     animation-delay: 1s;
 
-    h1 {
-      margin-bottom: 1.5rem;
-      color: #0c845f;
-      font-size: 3rem;
-    }
-
     .title {
       background: url(../../../images/banner.png) no-repeat center center;
       background-size: cover;
       padding: 20px;
       min-width: 950px;
       min-height: 90px;
+
+      h1 {
+        margin-bottom: 1.5rem;
+        color: #0c845f;
+        font-size: 3rem;
+      }
     }
 
     h2 {
