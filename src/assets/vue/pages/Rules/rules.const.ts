@@ -1,17 +1,22 @@
-export const gameRules = [{
-  titre: 'Règles générales',
-  description:'siu',
-},
+export const gameRules = [
   {
-    titre: 'Carte' ,
+    titre: 'Règles générales',
     description: 'siu',
   },
   {
-    titre: 'Règles de zone' ,
+    titre: 'Carte',
     description: 'siu',
   },
   {
-    titre: 'Sprites' ,
+    titre: 'Règles de zone',
     description: 'siu',
-  }
+  },
+  {
+    titre: 'Sprites',
+    description: 'siu',
+  },
+  {
+    titre: 'Test',
+    description: '',
+  },
 ]

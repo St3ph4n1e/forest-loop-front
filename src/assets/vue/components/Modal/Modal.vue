@@ -33,7 +33,8 @@ const closeModal = () => {
         <span @click="closeModal" class="close-btn">&times;</span>
       </div>
       <div class="modal-content">
-        <p>{{ description }}</p>
+        <p v-if="description">{{ description }}</p>
+        <slot v-else> </slot>
       </div>
       <footer class="modal-footer">
         <button class="btn" @click="closeModal">C'est Compris</button>

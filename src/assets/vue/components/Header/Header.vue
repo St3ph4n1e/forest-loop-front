@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import socket from '@/socket-io/socket'
 
 const router = useRouter()
+// const showModal = ref(false)
 
 const goHome = () => {
   router.push('/')
@@ -56,6 +57,18 @@ onMounted(() => {
             @click="goToRules"
           >
             Forest Guide
+          </li>
+          <li
+            class="sm:w-15 animate__animated animate__fadeInDown"
+            v-if="currentRoute === '/game'"
+            :class="isActive('Game')"
+            @click="showModal"
+          >
+            <img
+              class="header-sprite"
+              src="../../../images/sprite.png"
+              alt="sprite"
+            />
           </li>
         </ul>
       </nav>

@@ -41,7 +41,9 @@ const handleModal = () => {
       :description="selectedRule.description"
       :show-modal="showModal"
       @close="handleModal"
-    />
+    >
+      <RuleCard picture="logo.svg" title="logo" />
+    </Modal>
   </section>
 </template>
 

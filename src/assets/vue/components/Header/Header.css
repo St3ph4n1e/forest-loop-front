@@ -8,6 +8,7 @@
 }
 
 .header-game {
+  width: 100%;
   position: absolute;
   z-index: 900;
   top: 0;
