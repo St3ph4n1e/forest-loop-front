@@ -13,8 +13,7 @@ const goToWaitingArea = () => {
 onMounted(() => {
   setTimeout(() => {
     isLoading.value = false
-  }, 3500)
-
+  }, 2500)
 })
 </script>
 
@@ -23,7 +22,9 @@ onMounted(() => {
   <section class="home">
     <div v-if="isLoading" class="overlay"></div>
     <div class="content">
-      <h1 class="text-6xl font-bold text-white">Forest Loop</h1>
+      <div class="title">
+        <h1 class="text-center font-bold text-green-500">Forest Loop</h1>
+      </div>
       <h2 class="text-2xl mt-4 text-gray-300">Plongez dans l'aventure!</h2>
       <button
         @click="goToWaitingArea"

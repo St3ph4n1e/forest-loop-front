@@ -31,12 +31,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <section :class="{ 'header-game': currentRoute === '/game' }">
+  <section class="forest-header">
     <header class="navbar">
       <div v-if="currentRoute !== '/game'" class="logo" @click="goHome">
         <img src="../../../images/logo.png" alt="Logo" />
       </div>
-      <div v-else class="logo" @click="endGame">
+      <div v-else class="game-logo" @click="endGame">
         <img src="../../../images/logout.png" alt="Logo" />
       </div>
       <nav>
