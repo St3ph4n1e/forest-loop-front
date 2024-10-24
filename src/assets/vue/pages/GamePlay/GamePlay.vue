@@ -3,13 +3,14 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import socket from '@/socket-io/socket'
 import Header from '../../components/Header/Header.vue'
 
-const rules = ref([]);
+const rules = ref([])
 //const visibleRules = ref(30);
-const gridSize = { rows: 11, cols: 11 };
-const centerX = Math.floor(gridSize.cols / 2);
-const centerY = Math.floor(gridSize.rows / 2);
-const gridCases = ref([]);
-const redPointPosition = ref({ x: 0, y: 0 });
+const gridSize = { rows: 11, cols: 11 }
+const centerX = Math.floor(gridSize.cols / 2)
+const centerY = Math.floor(gridSize.rows / 2)
+const gridCases = ref([])
+const redPointPosition = ref({ x: 0, y: 0 })
+const isModalOpen = ref(false)
 
 //const showNextRule = () => {
 // if (visibleRules.value < 5) {
@@ -17,58 +18,62 @@ const redPointPosition = ref({ x: 0, y: 0 });
 //}
 //}
 
-const moveRedPoint = (event) => {
+const moveRedPoint = event => {
   switch (event.key) {
     case 'ArrowUp':
-      if (redPointPosition.value.y < centerY) redPointPosition.value.y += 1;
-      break;
+      if (redPointPosition.value.y < centerY) redPointPosition.value.y += 1
+      break
     case 'ArrowDown':
-      if (redPointPosition.value.y > -centerY) redPointPosition.value.y -= 1;
-      break;
+      if (redPointPosition.value.y > -centerY) redPointPosition.value.y -= 1
+      break
     case 'ArrowLeft':
-      if (redPointPosition.value.x > -centerX) redPointPosition.value.x -= 1;
-      break;
+      if (redPointPosition.value.x > -centerX) redPointPosition.value.x -= 1
+      break
     case 'ArrowRight':
-      if (redPointPosition.value.x < centerX) redPointPosition.value.x += 1;
-      break;
+      if (redPointPosition.value.x < centerX) redPointPosition.value.x += 1
+      break
   }
-};
+}
 
 onMounted(() => {
-  const tempGridCases = [];
+  const tempGridCases = []
   for (let y = 0; y < gridSize.rows; y++) {
     for (let x = 0; x < gridSize.cols; x++) {
-      let relX = x - centerX;
-      let relY = centerY - y;
-      tempGridCases.push({ id: `${relX}.${relY}`, x: relX, y: relY });
+      let relX = x - centerX
+      let relY = centerY - y
+      tempGridCases.push({ id: `${relX}.${relY}`, x: relX, y: relY })
     }
   }
-  gridCases.value = tempGridCases;
+  gridCases.value = tempGridCases
 
-  window.addEventListener('keydown', moveRedPoint);
+  window.addEventListener('keydown', moveRedPoint)
 
   socket.on('player coords', ({ x, y }) => {
     redPointPosition.value = { x, y }
-  });
+  })
 
-  socket.on('send rules', (newRules) => {
-    console.log(newRules);
-    rules.value = newRules;
-  });
-});
+  socket.on('send rules', newRules => {
+    console.log(newRules)
+    rules.value = newRules
+  })
+})
 
 onUnmounted(() => {
   socket.off('player coords')
-});
+})
+
+const toggleModal = (isOpen: boolean) => {
+  isModalOpen.value = isOpen
+}
 
 //const sendCoords = () => {
-  //socket.emit('player coords', { x: 4, y: 0 })
+//socket.emit('player coords', { x: 4, y: 0 })
 //}
 </script>
 
 <template>
-  <Header> </Header>
-  <div class="container">
+  <Header @modal-toggle="toggleModal"></Header> />
+  <div v-show="!isModalOpen" class="container">
     <div class="left-pane">
       <div class="grid-map">
         <div
@@ -76,8 +81,12 @@ onUnmounted(() => {
           :key="gridCase.id"
           :id="gridCase.id"
           class="grid-case"
-          :class="{ 'red-point': gridCase.x === redPointPosition.x && gridCase.y === redPointPosition.y }">
-        </div>
+          :class="{
+            'red-point':
+              gridCase.x === redPointPosition.x &&
+              gridCase.y === redPointPosition.y,
+          }"
+        ></div>
       </div>
     </div>
     <div class="right-pane" @click="showNextRule">
@@ -85,16 +94,17 @@ onUnmounted(() => {
       <div
         class="card"
         v-for="(rule, index) in rules"
-      :key="index"
-      :style="{ '--rules-index': index + 1 }">
-      <div class="face face1">
-        <div class="content">
-          <span class="stars"></span>
-          <p class="gamer-font">{{ rule }}</p>
+        :key="index"
+        :style="{ '--rules-index': index + 1 }"
+      >
+        <div class="face face1">
+          <div class="content">
+            <span class="stars"></span>
+            <p class="gamer-font">{{ rule }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 

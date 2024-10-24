@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import socket from '@/socket-io/socket'
 import Modal from '../Modal/Modal.vue'
 import RuleCard from '../RuleCard/RuleCard.vue'
+
+const emit = defineEmits(['modal-toggle'])
 
 const router = useRouter()
 const showModal = ref(false)
@@ -28,7 +30,12 @@ const endGame = () => {
 
 const handleModal = () => {
   showModal.value = !showModal.value
+  emit('modal-toggle', showModal.value)
 }
+
+watch(showModal, newValue => {
+  emit('modal-toggle', newValue)
+})
 
 onMounted(() => {
   socket.on('end game', () => {
