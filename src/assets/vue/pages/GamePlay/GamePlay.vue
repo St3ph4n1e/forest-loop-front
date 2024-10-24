@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import socket from '@/socket-io/socket'
+import Header from '../../components/Header/Header.vue'
 
 const rules = ref([]);
 //const visibleRules = ref(30);
@@ -66,6 +67,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <Header> </Header>
   <div class="container">
     <div class="left-pane">
       <div class="grid-map">
@@ -78,7 +80,7 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-    <div class="right-pane">
+    <div class="right-pane" @click="showNextRule">
       <h2 class="title">Règles</h2>
       <div
         class="card"
