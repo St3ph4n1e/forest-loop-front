@@ -17,9 +17,6 @@
   background-repeat: no-repeat;
   flex-basis: 66%;
   position: relative;
-  backdrop-filter: blur(90px);
-  border-top-left-radius: 40px;
-  border-bottom-left-radius: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,7 +59,24 @@
     overflow: auto;
 }
 .red-point {
-    background-color: red;
+  background-color: transparent;
+  background-image: url('src/assets/images/Game_Boy_Advance_-_The_Legend_of_Zelda_The_MinLunk_head.png');
+  background-size: 90%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.monster{
+    background-color: transparent;
+    background-image: url('src/assets/images/Monster_head.png');
+    background-size: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.visited {
+  background-color: green;
 }
 
 /* Red point styling */
@@ -102,6 +116,7 @@
   flex-direction: column;
   gap: 10px;
   padding: 20px;
+  margin: 65px 0 0 0;
   overflow-y: auto;
   max-height: calc(100vh - 4rem);
 }
