@@ -74,10 +74,8 @@ onUnmounted(() => {
           :key="gridCase.id"
           :id="gridCase.id"
           class="grid-case"
-          :class="{ 'red-point': gridCase.x === redPointPosition.x && gridCase.y === redPointPosition.y }"
-          :data-x="gridCase.x"
-          :data-y="gridCase.y"
-        ></div>
+          :class="{ 'red-point': gridCase.x === redPointPosition.x && gridCase.y === redPointPosition.y }">
+        </div>
       </div>
     </div>
     <div class="right-pane">
