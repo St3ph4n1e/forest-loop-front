@@ -2,18 +2,19 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import socket from '@/socket-io/socket'
 
-const visibleRules = ref(0);
+const rules = ref([]);
+//const visibleRules = ref(30);
 const gridSize = { rows: 11, cols: 11 };
 const centerX = Math.floor(gridSize.cols / 2);
 const centerY = Math.floor(gridSize.rows / 2);
 const gridCases = ref([]);
 const redPointPosition = ref({ x: 0, y: 0 });
 
-const showNextRule = () => {
-  if (visibleRules.value < 5) {
-    visibleRules.value += 1
-  }
-}
+//const showNextRule = () => {
+// if (visibleRules.value < 5) {
+//  visibleRules.value += 1
+//}
+//}
 
 const moveRedPoint = (event) => {
   switch (event.key) {
@@ -43,27 +44,29 @@ onMounted(() => {
   }
   gridCases.value = tempGridCases;
 
-  // Set random initial position for the red point
-  // redPointPosition.value = {
-    // x: Math.floor(Math.random() * gridSize.cols) - centerX,
-    // y: centerY - Math.floor(Math.random() * gridSize.rows)
-  // };
-
-
-  // Set constant initial position for the red point
-  redPointPosition.value = { x: -5, y: -5 };
-
   window.addEventListener('keydown', moveRedPoint);
+
+  socket.on('player coords', ({ x, y }) => {
+    redPointPosition.value = { x, y }
+  });
+
+  socket.on('send rules', (newRules) => {
+    console.log(newRules);
+    rules.value = newRules;
+  });
 });
 
 onUnmounted(() => {
-  // window.removeEventListener('keydown', moveRedPoint)
   socket.off('player coords')
-})
+});
+
+//const sendCoords = () => {
+  //socket.emit('player coords', { x: 4, y: 0 })
+//}
 </script>
 
 <template>
-  <div class="container" @click="showNextRule">
+  <div class="container">
     <div class="left-pane">
       <div class="grid-map">
         <div
@@ -81,19 +84,17 @@ onUnmounted(() => {
       <h2 class="title">Règles</h2>
       <div
         class="card"
-        v-for="n in 5"
-        :key="n"
-        :style="{ '--rule-index': n }"
-        v-show="n <= visibleRules"
-      >
-        <div class="face face1">
-          <div class="content">
-            <span class="stars"></span>
-            <p class="gamer-font">Si il y a un gros caillou rouge à gauche de l'écran, aller à droite et ne pas aller à gauche.</p>
-          </div>
+        v-for="(rule, index) in rules"
+      :key="index"
+      :style="{ '--rules-index': index + 1 }">
+      <div class="face face1">
+        <div class="content">
+          <span class="stars"></span>
+          <p class="gamer-font">{{ rule }}</p>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
