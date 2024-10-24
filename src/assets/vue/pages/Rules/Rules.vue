@@ -9,8 +9,8 @@ import RuleContent from '@/assets/vue/components/RuleContent/RuleContent.vue'
 
 
 const showModal = ref(false)
-const selectedRule = ref({ titre: '', description: '', component: '' })
-const openModalWithRule = (rule: { titre: string; description: string; component: string; }) => {
+const selectedRule = ref({ titre: '', description: '', component: '' , image: '' })
+const openModalWithRule = (rule: { titre: string; description: string; component: string; image: string; }) => {
   selectedRule.value = rule
   showModal.value = true
 }
@@ -31,7 +31,7 @@ const handleModal = () => {
         <RuleCard
           v-for="(rule, index) in gameRules"
           :key="index"
-          picture="RulesIcons/Mushroom.png"
+          :picture="`RulesIcons/${rule.image}.png`"
           :title="rule.titre"
           @click="openModalWithRule(rule)"
         />

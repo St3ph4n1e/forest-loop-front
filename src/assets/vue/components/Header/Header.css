@@ -20,6 +20,7 @@
   }
 
   .header-sprite {
+    width: 40px;
     cursor: pointer;
     transition: transform 0.3s;
     &:hover {
@@ -68,4 +69,10 @@ nav li.active {
 nav li:focus {
   outline: none;
   color: #ffd700;
+}
+
+.scrollable-content {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
 }

@@ -113,3 +113,8 @@
   backdrop-filter: blur(5px);
   z-index: 500;
 } */
+
+.modal-footer{
+  align-self: center;
+  white-space: nowrap;
+}
