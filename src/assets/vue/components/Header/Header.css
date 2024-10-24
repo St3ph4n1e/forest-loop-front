@@ -73,7 +73,7 @@ nav li:focus {
 }
 
 .scrollable-content {
-  max-height: 401px;
+  max-height: 400px;
   overflow-y: auto;
   padding-right: 10px;
 }
