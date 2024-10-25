@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import socket from '@/socket-io/socket'
+import Modal from '../Modal/Modal.vue'
+import RuleCard from '../RuleCard/RuleCard.vue'
+import SpriteContent from '@/assets/vue/components/SpriteContent/SpriteContent.vue'
+
+const emit = defineEmits(['modal-toggle'])
 
 const router = useRouter()
+const showModal = ref(false)
 
 const goHome = () => {
   router.push('/')
@@ -23,6 +29,15 @@ const endGame = () => {
   socket.emit('end game')
 }
 
+const handleModal = () => {
+  showModal.value = !showModal.value
+  emit('modal-toggle', showModal.value)
+}
+
+watch(showModal, newValue => {
+  emit('modal-toggle', newValue)
+})
+
 onMounted(() => {
   socket.on('end game', () => {
     router.push('/')
@@ -31,12 +46,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <section :class="{ 'header-game': currentRoute === '/game' }">
+  <section class="forest-header">
     <header class="navbar">
       <div v-if="currentRoute !== '/game'" class="logo" @click="goHome">
         <img src="../../../images/logo.png" alt="Logo" />
       </div>
-      <div v-else class="logo" @click="endGame">
+      <div v-else class="game-logo logo" @click="endGame">
         <img src="../../../images/logout.png" alt="Logo" />
       </div>
       <nav>
@@ -57,9 +72,28 @@ onMounted(() => {
           >
             Forest Guide
           </li>
+          <li
+            class="sm:w-15 animate__animated animate__fadeInDown"
+            v-if="currentRoute === '/game'"
+            :class="isActive('Game')"
+            @click="handleModal"
+          >
+            <img
+              class="header-sprite"
+              src="../../../images/RulesIcons/Mushroom.png"
+              alt="sprite"
+            />
+          </li>
         </ul>
       </nav>
     </header>
+    <Modal :title="'Végétations'" :show-modal="showModal" @close="handleModal">
+      <div class="modal-content">
+        <div class="scrollable-content">
+          <SpriteContent />
+        </div>
+      </div>
+    </Modal>
   </section>
 </template>
 
