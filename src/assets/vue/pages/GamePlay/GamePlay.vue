@@ -2,14 +2,15 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import socket from '@/socket-io/socket'
 
-const rules = ref(['test1', 'test1','si champignons balbalbalbalblablalbalblalba alors gauche', 'si buisson alors droite', 'si arbre alors haut', 'si roseau alors bas', 'si rocher alors haut', 'si buche alors bas']);
-const vege = ref(['buisson', 'arbre', 'champignon', 'roseau', 'rocher', 'buche']);
+const rules = ref([]);
+const vege = ref(['buisson', 'arbre', 'champignon', 'roseau', 'rocher', 'bûche']);
 const gridSize = { rows: 11, cols: 11 };
 const centerX = Math.floor(gridSize.cols / 2);
 const centerY = Math.floor(gridSize.rows / 2);
 const gridCases = ref([]);
 const redPointPosition = ref({ x: 0, y: 0 });
-const monsterPosition = ref({ x: 0, y: 0 });
+const monsterPosition = ref({ x: 6, y: 6 });
+
 
 
 // Fonction pour vérifier les mots et injecter les images
@@ -17,7 +18,7 @@ function highlightVege(ruleText: string) {
   for (let plant of vege.value) {
     if (ruleText.includes(plant)) {
       const imageUrl = `src/assets/images/${plant}.png`;
-      return `<img src="${imageUrl}" class="vege-image" alt="${plant}"> <p>${ruleText}</p>`;
+      return `<img src="${imageUrl}" style="width: 60px" class="vege-image" alt="${plant}"> <p>${ruleText}</p>`;
     }
   }
   return ruleText;
@@ -83,6 +84,12 @@ onMounted(() => {
 
   socket.on('monster coords', ({ x, y }) => {
     monsterPosition.value = { x, y };
+    if (monsterPosition.value.x === 0 && monsterPosition.value.y === 0) {
+      const monsterElement = document.querySelector('.monster');
+      if (monsterElement) {
+        monsterElement.style.opacity = '1';
+        }
+      }
   });
 
   socket.on('send rules', (newRules) => {
@@ -109,9 +116,10 @@ onUnmounted(() => {
           :key="gridCase.id"
           :id="gridCase.id"
           class="grid-case"
-          :class="{ 'red-point': gridCase.x === redPointPosition.x && gridCase.y === redPointPosition.y,
+          :class="{
                     'visited': gridCase.visited,
-                    'monster': gridCase.x === monsterPosition.x && gridCase.y === monsterPosition.y } ">
+                    'monster': gridCase.x === monsterPosition.x && gridCase.y === monsterPosition.y,
+                    'red-point': gridCase.x === redPointPosition.x && gridCase.y === redPointPosition.y} ">
         </div>
       </div>
     </div>
