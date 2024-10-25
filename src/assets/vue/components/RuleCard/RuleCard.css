@@ -1,0 +1,29 @@
+.rule-card {
+  .custom-image {
+    max-height: 50%;
+    max-width: 50%;
+    width: 200px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .card {
+    border-radius: 16px;
+    background: linear-gradient(
+      92deg,
+      rgba(253, 203, 110, 0.6) 0%,
+      rgba(253, 203, 110, 0.4) 100.82%
+    );
+    backdrop-filter: blur(1px);
+    transition-duration: 0.5s;
+    justify-content: center;
+
+    &:hover {
+      transform: scale(1.2);
+      transition-duration: 1s;
+      backdrop-filter: blur(3px);
+      animation: infinite alternate;
+      cursor: pointer;
+    }
+  }
+}

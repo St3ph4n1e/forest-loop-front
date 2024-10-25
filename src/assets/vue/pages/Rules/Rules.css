@@ -1,10 +1,10 @@
 .rules {
   position: relative;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+
   justify-content: center;
   font-family: 'Press Start 2P', cursive;
   padding: 2rem;
@@ -26,27 +26,8 @@
       rgba(255, 234, 167, 0.56) 90.69%,
       rgba(255, 234, 167, 0.14) 114.69%
     );
-    padding-bottom: 5%;
-  }
-
-  .card {
-    border-radius: 16px;
-    background: linear-gradient(
-      92deg,
-      rgba(253, 203, 110, 0.6) 0%,
-      rgba(253, 203, 110, 0.4) 100.82%
-    );
-    backdrop-filter: blur(1px);
-    transition-duration: 0.5s;
-    justify-content: center;
-  }
-
-  .card:hover {
-    transform: scale(1.2);
-    transition-duration: 1s;
-    backdrop-filter: blur(3px);
-    animation: infinite alternate;
-    cursor: pointer;
+    padding-bottom: 1%;
+    margin-top: 3rem;
   }
 
   .title {
@@ -58,13 +39,18 @@
     );
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25) inset;
     height: 70px;
-    padding: 30px;
-    margin-top: 50px;
-    width: 25%;
+    margin-top: 1.5rem;
     align-content: center;
     align-self: flex-start;
     top: 140px;
     left: 171px;
     width: fit-content;
+    padding: 10px 15px;
+  }
+
+  .scrollable-content {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
   }
 }

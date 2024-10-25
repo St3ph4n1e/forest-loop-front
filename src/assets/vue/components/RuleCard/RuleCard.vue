@@ -17,13 +17,19 @@ function getUrl(file: string): string {
 }
 </script>
 <template>
-  <div class="flex flex-col card bg-white rounded-lg shadow-lg overflow-hidden">
-    <img :src="getUrl(picture)" class="w-full h-40 object-cover" />
-    <div class="p-1">
-      <p class="text-center text-white text-xs font-semibold px-2">
-        {{ title }}
-      </p>
+  <section class="rule-card">
+    <div
+      class="flex flex-col card bg-white rounded-lg shadow-lg overflow-hidden h-40"
+    >
+      <div class="flex items-center justify-center w-full h-full">
+        <img :src="getUrl(picture)" class="custom-image" />
+      </div>
+      <div class="p-1">
+        <p class="text-center text-white text-xs font-semibold px-2">
+          {{ title }}
+        </p>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 <style src="./RuleCard.css" lang="css" scoped></style>
