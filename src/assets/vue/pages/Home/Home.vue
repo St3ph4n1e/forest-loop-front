@@ -2,12 +2,20 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Header from '../../components/Header/Header.vue'
+import ForestToast from '../../components/ForestToast/ForestToast.vue'
 
 const router = useRouter()
 const isLoading = ref(true)
+const toast = ref<InstanceType<typeof ForestToast> | null>(null)
 
 const goToWaitingArea = () => {
   router.push('/wait')
+}
+
+const triggerToast = () => {
+  if (toast.value) {
+    toast.value.showToast()
+  }
 }
 
 onMounted(() => {
@@ -19,6 +27,7 @@ onMounted(() => {
 
 <template>
   <Header v-if="!isLoading"></Header>
+
   <section class="home">
     <div v-if="isLoading" class="overlay"></div>
     <div class="content">
@@ -33,6 +42,12 @@ onMounted(() => {
         Commencer
       </button>
     </div>
+
+    <ForestToast
+      message="Welcome in the forest"
+      class="mt-50"
+      ref="toast"
+    ></ForestToast>
   </section>
 </template>
 
