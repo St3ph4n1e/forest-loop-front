@@ -36,10 +36,10 @@ const initValue = () => {
   isError.value = false
 }
 
-const initGame = () => {
-  socket.emit('init game')
-  console.log('init')
-}
+// const initGame = () => {
+//   socket.emit('init game')
+//   console.log('init')
+// }
 
 onMounted(() => {
   setTimeout(() => {
@@ -66,12 +66,12 @@ onMounted(() => {
 
   socket.on('room does not exist', () => {
     console.log('room does not exist')
-    errorMessage.value = 'Cette room n\'existe pas.'
+    errorMessage.value = "Cette room n'existe pas."
     isError.value = true
     isLoading.value = false
   })
 
-  socket.on('join room', (room) => {
+  socket.on('join room', room => {
     console.log('join room', room)
     isLoading.value = false
     router.push('/game')
@@ -79,17 +79,18 @@ onMounted(() => {
 })
 </script>
 
-
 <template>
   <Header></Header>
   <section id="waiting">
     <div v-if="isLoading" class="overlay"></div>
     <div :class="['title', { 'move-up': isMovedUp }]">
-      <h1 class="text-6xl font-bold text-white">Forest Loop</h1>
-      <h2 class="text-2xl mt-4 text-gray-300">Plongez dans l'aventure!</h2>
+      <div class="forest-title">
+        <h1 class="text-center font-bold">Forest Loop</h1>
+      </div>
+      <h2 class="text-2xl mt-4 text-white">Plongez dans l'aventure!</h2>
       <button
         v-if="isButton"
-        class="animate__animated animate__bounceOut bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        class="animate__animated animate__bounceOut text-white font-bold py-2 px-4 rounded"
       >
         Commencer
       </button>
@@ -117,17 +118,17 @@ onMounted(() => {
         <button
           @click="goToGame()"
           @blur="initValue"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          class="text-white font-bold py-2 px-4 rounded"
         >
           Valider
         </button>
 
-        <button
+        <!-- <button
           @click="initGame()"
-          class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          class="text-white font-bold py-2 px-4 rounded"
         >
           Init
-        </button>
+        </button> -->
       </div>
     </div>
     <Loader v-if="isLoading" />
