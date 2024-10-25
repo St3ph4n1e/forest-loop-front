@@ -27,7 +27,7 @@ const handleModal = () => {
       <div class="title text-white">
         <h1 class="whitespace-nowrap">Guide forestier</h1>
       </div>
-      <div class="cards grid grid-cols-1 md:grid-cols-2 gap-8 p-12">
+      <div class="cards grid grid-cols-1 md:grid-cols-2 gap-8 p-12" style="padding-bottom: 1rem;">
         <RuleCard
           v-for="(rule, index) in gameRules"
           :key="index"
@@ -36,7 +36,7 @@ const handleModal = () => {
           @click="openModalWithRule(rule)"
         />
       </div>
-      <h1 class="text-white text-lg">Séléctionne une option</h1>
+      <h1 data-v-3d8c14db="" class="text-white text-lg mx-5" style="margin: 1rem;">Séléctionne une option</h1>
     </div>
 
     <Modal
