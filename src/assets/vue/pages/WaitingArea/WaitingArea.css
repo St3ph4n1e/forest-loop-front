@@ -1,17 +1,15 @@
 #waiting {
-  position: relative;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 2rem;
-  margin-top: 3rem;
   transition: margin-left 3s ease;
-  /*justify-content: center;*/
 }
 
 .waitingCard {
+  position: absolute;
+  top: 45%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,19 +19,17 @@
   backdrop-filter: blur(50px);
   height: 345px;
   width: 345px;
-  margin-top: 200px;
 }
 
 .title {
-  position: absolute;
-  left: 50%;
-  top: 47%;
-  transform: translate(-50%, -40%);
-  transition: top 1s ease-out;
+  text-align: center;
+  margin : auto;
+  transform: translateY(0%);
+  transition: transform 1s ease-out;
 }
 
 .title.move-up {
-  top: 15%;
+  transform: translateY(-50%);
 }
 
 .forest-title {
@@ -90,5 +86,7 @@ button {
 }
 
 button:hover {
-  transform: scale(0.8);
+  background-color: #45a049;
+  transform: scale(1.05);
+
 }

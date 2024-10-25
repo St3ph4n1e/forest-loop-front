@@ -46,7 +46,6 @@ onMounted(() => {
     isMovedUp.value = true
     isCard.value = true
   }, 700)
-
   isCard.value = false
   isButton.value = true
 
