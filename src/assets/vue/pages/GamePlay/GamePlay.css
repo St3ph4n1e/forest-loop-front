@@ -74,6 +74,10 @@
     background-repeat: no-repeat;
 }
 
+/*
+.monsterzero{
+}
+*/
 
 .visited {
   background-color: green;
@@ -130,10 +134,10 @@
   background: linear-gradient(10deg, #082815 20%, #154456 45%, #345922 100%);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   overflow: hidden;
-  padding: 20px;
-  width: fit-content;
+  width: 35px;
+  height: fit-content;
   transform: scale(0.5);
   animation: spawn 0.5s forwards;
 }
@@ -152,20 +156,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  width: 100%;
 }
 
 /* Face1 content paragraph styling */
-.face1 .content p {
+.gamer-font {
+  display: flex;
   font-size: 0.95em;
-  color: white;
+  justify-content: space-around;
+  align-items: center;
   margin: 0;
+  width: 100%;
+  color: white;
 }
 
-/* Font styling for gamer font */
-.gamer-font {
-  font-family: 'Press Start 2P', cursive;
+/*.vege-image > img */.gamer-font > img{
+    width: 75px !important;
+    height: 75px;
+    vertical-align: middle;
+    display: flex;
 }
+
 
 /* Red point styling
 .red-point {
@@ -181,13 +192,13 @@
 
 /* Ensure minimum size for cards when there are less than three */
 .right-pane .card {
-  min-width: 220px;
-  min-height: 200px;
+  min-width: 450px;
+  min-height: 130px;
 }
 
 /* Custom scrollbar */
 .right-pane::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 
 .right-pane::-webkit-scrollbar-track {

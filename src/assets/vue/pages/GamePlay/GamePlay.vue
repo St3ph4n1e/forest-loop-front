@@ -2,14 +2,26 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import socket from '@/socket-io/socket'
 
-const rules = ref(['buisson champignon', 'arbre', 'champignon', 'roseau', 'rocher', 'buche']);
+const rules = ref(['test1', 'test1','si champignons balbalbalbalblablalbalblalba alors gauche', 'si buisson alors droite', 'si arbre alors haut', 'si roseau alors bas', 'si rocher alors haut', 'si buche alors bas']);
+const vege = ref(['buisson', 'arbre', 'champignon', 'roseau', 'rocher', 'buche']);
 const gridSize = { rows: 11, cols: 11 };
 const centerX = Math.floor(gridSize.cols / 2);
 const centerY = Math.floor(gridSize.rows / 2);
 const gridCases = ref([]);
 const redPointPosition = ref({ x: 0, y: 0 });
-const monsterPosition = ref({ x: 5, y: 5 });
+const monsterPosition = ref({ x: 0, y: 0 });
 
+
+// Fonction pour vérifier les mots et injecter les images
+function highlightVege(ruleText: string) {
+  for (let plant of vege.value) {
+    if (ruleText.includes(plant)) {
+      const imageUrl = `src/assets/images/${plant}.png`;
+      return `<img src="${imageUrl}" class="vege-image" alt="${plant}"> <p>${ruleText}</p>`;
+    }
+  }
+  return ruleText;
+}
 const moveRedPoint = (event) => {
 
   switch (event.key) {
@@ -99,10 +111,11 @@ onUnmounted(() => {
           class="grid-case"
           :class="{ 'red-point': gridCase.x === redPointPosition.x && gridCase.y === redPointPosition.y,
                     'visited': gridCase.visited,
-                    'monster': gridCase.x === monsterPosition.x && gridCase.y === monsterPosition.y }">
+                    'monster': gridCase.x === monsterPosition.x && gridCase.y === monsterPosition.y } ">
         </div>
       </div>
     </div>
+
     <div class="right-pane">
       <h2 class="title">Règles</h2>
       <div
@@ -111,14 +124,11 @@ onUnmounted(() => {
         :key="index"
         :style="{ '--rules-index': index + 1 }">
         <div class="face face1">
-          <div class="content">
-            <span class="stars"></span>
-            <p class="gamer-font">{{ rule }}</p>
-          </div>
+          <div class="gamer-font" v-html="highlightVege(rule)"></div>
         </div>
       </div>
+      </div>
     </div>
-  </div>
 </template>
 
 <style src="./GamePlay.css" lang="css" scoped></style>
