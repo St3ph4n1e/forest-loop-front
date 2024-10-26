@@ -36,7 +36,7 @@ function highlightVege(ruleText: string) {
   for (let plant of vege.value) {
     if (ruleText.includes(plant)) {
       const imageUrl = `src/assets/images/${plant}.png`
-      return `<img src="${imageUrl}" class="vege-image" alt="${plant}"> <p>${ruleText}</p>`
+      return `<img src="${imageUrl}" class="vege-image" alt="${plant}" style="flex-basis: 10%"> <p style="font-size: 0.8rem; flex-basis: 60%;">${ruleText}</p>`
     }
   }
   return ruleText
@@ -128,7 +128,7 @@ onUnmounted(() => {
 
 <template>
   <Header @modal-toggle="toggleModal"></Header> />
-  <div v-show="!isModalOpen" class="container">
+  <div v-show="!isModalOpen" class="game-container">
     <div class="left-pane">
       <div class="grid-map">
         <div
@@ -153,14 +153,12 @@ onUnmounted(() => {
     <div class="right-pane">
       <h2 class="title">Règles</h2>
       <div
-        class="card"
+        class="rule-card"
         v-for="(rule, index) in rules"
         :key="index"
         :style="{ '--rules-index': index + 1 }"
       >
-        <div class="face face1">
-          <div class="gamer-font" v-html="highlightVege(rule)"></div>
-        </div>
+        <div class="gamer-font" v-html="highlightVege(rule)"></div>
       </div>
     </div>
   </div>

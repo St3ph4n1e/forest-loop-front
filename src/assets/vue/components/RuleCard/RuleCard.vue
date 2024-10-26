@@ -19,7 +19,7 @@ function getUrl(file: string): string {
 <template>
   <section class="rule-card">
     <div
-      class="flex flex-col card bg-white rounded-lg shadow-lg overflow-hidden h-40"
+      class="flex flex-col rule-card bg-white rounded-lg shadow-lg overflow-hidden h-40"
     >
       <div class="flex items-center justify-center w-full h-full">
         <img :src="getUrl(picture)" class="custom-image" />
