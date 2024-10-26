@@ -26,7 +26,7 @@ const gridSize = { rows: 11, cols: 11 }
 const centerX = Math.floor(gridSize.cols / 2)
 const centerY = Math.floor(gridSize.rows / 2)
 const gridCases = ref<GridCase[]>([])
-const redPointPosition = ref({ x: 0, y: 0 })
+const playerPosition = ref({ x: 0, y: 0 })
 const monsterPosition = ref({ x: 0, y: 0 })
 const isModalOpen = ref(false)
 const isMonsterInvisible = ref(false)
@@ -36,7 +36,7 @@ function highlightVege(ruleText: string) {
   for (let plant of vege.value) {
     if (ruleText.includes(plant)) {
       const imageUrl = `src/assets/images/${plant}.png`
-      return `<img src="${imageUrl}" class="vege-image" alt="${plant}" style="flex-basis: 10%"> <p style="font-size: 0.8rem; flex-basis: 60%;">${ruleText}</p>`
+      return `<img src="${imageUrl}" alt="${plant}" style="flex-basis: 10%"> <p style="font-size: 0.8rem; flex-basis: 60%;">${ruleText}</p>`
     }
   }
   return ruleText
@@ -47,10 +47,6 @@ function highlightVege(ruleText: string) {
 //redPointPosition.value = { x: 0, y: 0 }
 //}
 //});
-
-const showMonster = computed(() => {
-  return isMonsterInvisible.value
-})
 
 watch(
   monsterPosition,
@@ -82,9 +78,9 @@ onMounted(() => {
 })
 
 socket.on('player coords', ({ x, y }) => {
-  redPointPosition.value = { x, y }
-  const currentX = redPointPosition.value.x
-  const currentY = redPointPosition.value.y
+  playerPosition.value = { x, y }
+  const currentX = playerPosition.value.x
+  const currentY = playerPosition.value.y
 
   // Trouver l'ancienne case
   const previousCase = gridCases.value.find(
@@ -98,7 +94,7 @@ socket.on('player coords', ({ x, y }) => {
 
   // A CHANGER PAR LA MORT DU JOUEUR RECU PAR SOCKET IO
   // Si le point rouge passe par la case (0, 0), réinitialiser toutes les cases
-  if (redPointPosition.value.x === 0 && redPointPosition.value.y === 0) {
+  if (playerPosition.value.x === 0 && playerPosition.value.y === 0) {
     gridCases.value.forEach(gridCase => {
       gridCase.visited = false
     })
@@ -138,15 +134,16 @@ onUnmounted(() => {
           class="grid-case"
           :class="{
             'red-point':
-              gridCase.x === redPointPosition.x &&
-              gridCase.y === redPointPosition.y,
+              gridCase.x === playerPosition.x &&
+              gridCase.y === playerPosition.y,
             visited: gridCase.visited,
             monster:
               gridCase.x === monsterPosition.x &&
-              gridCase.y === monsterPosition.y,
-            showMonster: isMonsterInvisible,
+              gridCase.y === monsterPosition.y &&
+              !(monsterPosition.x === 0 && monsterPosition.y === 0)
           }"
-        ></div>
+        >
+        </div>
       </div>
     </div>
 
