@@ -109,16 +109,15 @@ socket.on('send rules', newRules => {
   rules.value = newRules
 })
 
-onUnmounted(() => {
-  socket.off('player coords')
-})
-
 const toggleModal = (isOpen: boolean) => {
   isModalOpen.value = isOpen
 }
 
 onUnmounted(() => {
   socket.off('player coords')
+  socket.off('send rules')
+  socket.off('monster coords')
+  socket.off('player death')
 })
 </script>
 
