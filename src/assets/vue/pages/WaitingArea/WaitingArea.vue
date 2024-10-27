@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import 'animate.css'
 import Header from '@/assets/vue/components/Header/Header.vue'
 import socket from '@/socket-io/socket'
-import { removeItem, setItem } from '@/helpers/loacalstorage.helper'
+import { removeItem, setItem } from '@/helpers/localstorage.helper'
 import ForestToast from '@/assets/vue/components/ForestToast/ForestToast.vue'
 
 const router = useRouter()

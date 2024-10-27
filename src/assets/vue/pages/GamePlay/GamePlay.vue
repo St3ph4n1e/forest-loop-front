@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
 import socket from '@/socket-io/socket'
 import Header from '../../components/Header/Header.vue'
 import type { GridCase } from '../../types/gridCase'
-import { getItem, removeItem } from '@/helpers/loacalstorage.helper'
+import { getItem, removeItem } from '@/helpers/localstorage.helper'
 import router from '@/router'
 
 const rules = ref([
@@ -68,6 +68,7 @@ onMounted(() => {
 
   if (!roomNumber) {
     router.push('/')
+    return
   }
 
   const tempGridCases = []
@@ -128,7 +129,6 @@ socket.on('game won', () => {
 socket.on('end game', () => {
   removeItem("roomNumber")
   router.push('/wait')
-  // redirect
 })
 
 const toggleModal = (isOpen: boolean) => {
