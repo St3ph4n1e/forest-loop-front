@@ -27,7 +27,7 @@ const goToGame = () => {
   setTimeout(() => {
     isLoading.value = false
     socket.emit('join game', code.value)
-  }, 1500)
+  }, 500)
 }
 
 const initValue = () => {
