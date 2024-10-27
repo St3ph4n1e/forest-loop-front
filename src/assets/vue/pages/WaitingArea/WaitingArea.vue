@@ -30,12 +30,10 @@ const goToGame = () => {
   socket.emit('join game', code.value)
 
   const socketTimeout = setTimeout(() => {
-    console.log('Problème de connection avec le serveur...')
     isLoading.value = false
     if (errorToast.value) {
       errorToast.value.showToast()
     }
-    // Put toast in here
   }, 10000)
 
 
