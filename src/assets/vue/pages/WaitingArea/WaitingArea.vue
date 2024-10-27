@@ -134,7 +134,7 @@ onMounted(() => {
     </div>
     <Loader v-if="isLoading" />
     <ForestToast
-      message="Connection failed ..."
+      message="Connection échouée ..."
       class="mt-50"
       ref="errorToast"
     ></ForestToast>
