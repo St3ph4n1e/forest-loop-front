@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import 'animate.css'
 import Header from '@/assets/vue/components/Header/Header.vue'
 import socket from '@/socket-io/socket'
+import { removeItem, setItem } from '@/helpers/loacalstorage.helper'
 
 const router = useRouter()
 const isLoading = ref(false)
@@ -24,31 +25,21 @@ const goToGame = () => {
   }
 
   isLoading.value = true
-  setTimeout(() => {
+  socket.emit('join game', code.value)
+
+  const socketTimeout = setTimeout(() => {
+    console.log('Problème de connection avec le serveur...')
+    // Put toast in here and redirect to home
+  }, 10000)
+
+
+  socket.on('join room', room => {
+    console.log('join room', room)
     isLoading.value = false
-    socket.emit('join game', code.value)
-  }, 500)
-}
-
-const initValue = () => {
-  errorMessage.value = ''
-  code.value = ''
-  isError.value = false
-}
-
-// const initGame = () => {
-//   socket.emit('init game')
-//   console.log('init')
-// }
-
-onMounted(() => {
-  setTimeout(() => {
-    isMovedUp.value = true
-    isCard.value = true
-  }, 700)
-
-  isCard.value = false
-  isButton.value = true
+    clearTimeout(socketTimeout)
+    setItem("roomNumber", room)
+    router.push('/game')
+  })
 
   socket.on('full room', () => {
     console.log('full room')
@@ -71,12 +62,25 @@ onMounted(() => {
     isLoading.value = false
   })
 
-  socket.on('join room', room => {
-    console.log('join room', room)
-    isLoading.value = false
-    router.push('/game')
-  })
+}
+
+const initValue = () => {
+  errorMessage.value = ''
+  code.value = ''
+  isError.value = false
+}
+
+onMounted(() => {
+  removeItem("roomNumber")
+  setTimeout(() => {
+    isMovedUp.value = true
+    isCard.value = true
+  }, 700)
+
+  isCard.value = false
+  isButton.value = true
 })
+
 </script>
 
 <template>
@@ -122,13 +126,6 @@ onMounted(() => {
         >
           Valider
         </button>
-
-        <!-- <button
-          @click="initGame()"
-          class="text-white font-bold py-2 px-4 rounded"
-        >
-          Init
-        </button> -->
       </div>
     </div>
     <Loader v-if="isLoading" />

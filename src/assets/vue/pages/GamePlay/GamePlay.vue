@@ -3,6 +3,8 @@ import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
 import socket from '@/socket-io/socket'
 import Header from '../../components/Header/Header.vue'
 import type { GridCase } from '../../types/gridCase'
+import { getItem, removeItem } from '@/helpers/loacalstorage.helper'
+import router from '@/router'
 
 const rules = ref([
   'test1',
@@ -61,6 +63,13 @@ watch(
 )
 
 onMounted(() => {
+
+  const roomNumber =  getItem("roomNumber")
+
+  if (!roomNumber) {
+    router.push('/')
+  }
+
   const tempGridCases = []
   for (let y = 0; y < gridSize.rows; y++) {
     for (let x = 0; x < gridSize.cols; x++) {
@@ -109,6 +118,19 @@ socket.on('send rules', newRules => {
   rules.value = newRules
 })
 
+socket.on('game won', () => {
+  console.log('game won')
+  removeItem("roomNumber")
+  // modal with you won in that amount of time, proceed button or redirect
+  // toast win with timeout redirect
+})
+
+socket.on('end game', () => {
+  removeItem("roomNumber")
+  router.push('/wait')
+  // redirect
+})
+
 const toggleModal = (isOpen: boolean) => {
   isModalOpen.value = isOpen
 }
@@ -122,7 +144,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <Header @modal-toggle="toggleModal"></Header> />
+  <Header @modal-toggle="toggleModal"></Header>
   <div v-show="!isModalOpen" class="game-container">
     <div class="left-pane">
       <div class="grid-map">
