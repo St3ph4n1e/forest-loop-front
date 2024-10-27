@@ -11,9 +11,7 @@ const isLoading = ref(false)
 const code = ref('')
 const isError = ref(false)
 const errorMessage = ref('')
-const isCard = ref(false)
-const isButton = ref(true)
-const isMovedUp = ref(false)
+//const isMovedUp = ref(false)
 
 const goToGame = () => {
   console.log(code.value)
@@ -23,9 +21,9 @@ const goToGame = () => {
     return
   }
 
-  isLoading.value = true
+  //isLoading.value = true
   setTimeout(() => {
-    isLoading.value = false
+    //isLoading.value = false
     socket.emit('join game', code.value)
   }, 1500)
 }
@@ -42,12 +40,6 @@ const initValue = () => {
 // }
 
 onMounted(() => {
-  setTimeout(() => {
-    isMovedUp.value = true
-    isCard.value = true
-  }, 700)
-  isCard.value = false
-  isButton.value = true
 
   socket.on('full room', () => {
     console.log('full room')
@@ -82,22 +74,15 @@ onMounted(() => {
   <Header></Header>
   <section id="waiting">
     <div v-if="isLoading" class="overlay"></div>
-    <div :class="['title', { 'move-up': isMovedUp }]">
+    <div class='title'>
       <div class="forest-title">
         <h1 class="text-center font-bold">Forest Loop</h1>
       </div>
       <h2 class="text-2xl mt-4 text-white">Plongez dans l'aventure!</h2>
-      <button
-        v-if="isButton"
-        class="animate__animated animate__bounceOut text-white font-bold py-2 px-4 rounded"
-      >
-        Commencer
-      </button>
     </div>
 
     <div
-      v-if="isCard"
-      class="waitingCard animate__animated animate__fadeInUpBig"
+      class="waitingCard animate__animated animate__fadeInUp"
     >
       <div class="px-6 py-4">
         <div class="font-bold text-l text-white">Code de la partie</div>

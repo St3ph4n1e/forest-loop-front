@@ -5,7 +5,6 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  justify-content: center;
   font-family: 'Press Start 2P', cursive;
   padding: 2rem;
 
@@ -27,19 +26,6 @@
     opacity: 0;
     animation: fadeIn 3s forwards;
     animation-delay: 1s;
-
-    .title {
-      background: url(../../../images/banner.png) no-repeat center center;
-      background-size: cover;
-      padding: 20px;
-      min-width: 950px;
-      min-height: 90px;
-
-      h1 {
-        margin-bottom: 1.5rem;
-        color: #0c845f;
-        font-size: 3rem;
-      }
     }
 
     h2 {
@@ -60,7 +46,30 @@
       transform: scale(1.05);
 
     }
+}
+
+.forest-title {
+  background: url(../../../images/banner.png) no-repeat center center;
+  background-size: cover;
+  padding: 20px;
+  min-width: 950px;
+  min-height: 90px;
+
+  h1 {
+    margin-bottom: 1.5rem;
+    color: #0c845f;
+    font-size: 3rem;
   }
+}
+
+.title {
+  text-align: center;
+  transform: translateY(50%);
+  transition: transform 0.5s ease-out;
+}
+
+.title.move-up {
+  transform: translateY(0%);
 }
 
 @keyframes fadeIn {
@@ -69,14 +78,5 @@
   }
   100% {
     opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
   }
 }
