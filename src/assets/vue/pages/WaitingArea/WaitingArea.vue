@@ -6,6 +6,7 @@ import 'animate.css'
 import Header from '@/assets/vue/components/Header/Header.vue'
 import socket from '@/socket-io/socket'
 import { removeItem, setItem } from '@/helpers/loacalstorage.helper'
+import ForestToast from '@/assets/vue/components/ForestToast/ForestToast.vue'
 
 const router = useRouter()
 const isLoading = ref(false)
@@ -15,6 +16,7 @@ const errorMessage = ref('')
 const isCard = ref(false)
 const isButton = ref(true)
 const isMovedUp = ref(false)
+const errorToast = ref<InstanceType<typeof ForestToast> | null>(null)
 
 const goToGame = () => {
   console.log(code.value)
@@ -29,7 +31,11 @@ const goToGame = () => {
 
   const socketTimeout = setTimeout(() => {
     console.log('Problème de connection avec le serveur...')
-    // Put toast in here and redirect to home
+    isLoading.value = false
+    if (errorToast.value) {
+      errorToast.value.showToast()
+    }
+    // Put toast in here
   }, 10000)
 
 
@@ -129,6 +135,11 @@ onMounted(() => {
       </div>
     </div>
     <Loader v-if="isLoading" />
+    <ForestToast
+      message="Connection failed ..."
+      class="mt-50"
+      ref="errorToast"
+    ></ForestToast>
   </section>
 </template>
 
