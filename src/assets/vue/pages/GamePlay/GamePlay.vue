@@ -3,6 +3,9 @@ import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
 import socket from '@/socket-io/socket'
 import Header from '../../components/Header/Header.vue'
 import type { GridCase } from '../../types/gridCase'
+import Modal from '@/assets/vue/components/Modal/Modal.vue'
+import SpriteContent from '@/assets/vue/components/SpriteContent/SpriteContent.vue'
+import WinGameContent from '@/assets/vue/components/WinGameContent/WinGameContent.vue'
 
 const rules = ref([
   'test1',
@@ -30,6 +33,7 @@ const playerPosition = ref({ x: 0, y: 0 })
 const monsterPosition = ref({ x: 0, y: 0 })
 const isModalOpen = ref(false)
 const isMonsterInvisible = ref(false)
+const showWinGameModal = ref(false)
 
 // Fonction pour vérifier les mots et injecter les images
 function highlightVege(ruleText: string) {
@@ -109,6 +113,10 @@ socket.on('send rules', newRules => {
   rules.value = newRules
 })
 
+socket.on("game won", () => {
+  showWinGameModal.value = true
+})
+
 const toggleModal = (isOpen: boolean) => {
   isModalOpen.value = isOpen
 }
@@ -158,6 +166,13 @@ onUnmounted(() => {
       </div>
     </div>
   </div>
+  <Modal :title="'Victoire'" :show-modal="showWinGameModal" :closable="false">
+    <div class="modal-content">
+      <div class="scrollable-content">
+        <WinGameContent />
+      </div>
+    </div>
+  </Modal>
 </template>
 
 <style src="./GamePlay.css" lang="css" scoped></style>
