@@ -36,7 +36,7 @@ const closeModal = () => {
         <p v-if="description">{{ description }}</p>
         <slot v-else> </slot>
       </div>
-      <footer class="modal-footer">
+      <footer v-if="title" class="modal-footer">
         <button class="btn" @click="closeModal">C'est Compris</button>
       </footer>
     </div>

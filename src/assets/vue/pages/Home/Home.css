@@ -5,7 +5,6 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  justify-content: center;
   font-family: 'Press Start 2P', cursive;
   padding: 2rem;
 
@@ -27,19 +26,6 @@
     opacity: 0;
     animation: fadeIn 3s forwards;
     animation-delay: 1s;
-
-    .title {
-      background: url(../../../images/banner.png) no-repeat center center;
-      background-size: cover;
-      padding: 20px;
-      min-width: 950px;
-      min-height: 90px;
-
-      h1 {
-        margin-bottom: 1.5rem;
-        color: #0c845f;
-        font-size: 3rem;
-      }
     }
 
     h2 {
@@ -50,15 +36,40 @@
       margin-top: 2rem;
       font-family: 'Press Start 2P', cursive;
       background-color: #009432;
-      transition: background-color 0.3s;
+      transition: transform 0.3s ease-in-out;
       padding: 0.75rem 1.5rem;
       border-radius: 0.5rem;
     }
 
     button:hover {
-      transform: scale(1.2);
+      background-color: #45a049;
+      transform: scale(1.05);
+
     }
+}
+
+.forest-title {
+  background: url(../../../images/banner.png) no-repeat center center;
+  background-size: cover;
+  padding: 20px;
+  min-width: 950px;
+  min-height: 90px;
+
+  h1 {
+    margin-bottom: 1.5rem;
+    color: #0c845f;
+    font-size: 3rem;
   }
+}
+
+.title {
+  text-align: center;
+  transform: translateY(70%);
+  transition: transform 0.5s ease-out;
+}
+
+.title.move-up {
+  transform: translateY(0%);
 }
 
 @keyframes fadeIn {
@@ -67,14 +78,5 @@
   }
   100% {
     opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
   }
 }

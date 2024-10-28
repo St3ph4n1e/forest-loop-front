@@ -14,7 +14,7 @@ const rules = ref([
   'si arbre alors haut',
   'si roseau alors bas',
   'si rocher alors haut',
-  'si buche alors bas',
+  'si bûche alors bas',
 ])
 const vege = ref([
   'buisson',
@@ -22,7 +22,7 @@ const vege = ref([
   'champignon',
   'roseau',
   'rocher',
-  'buche',
+  'bûche',
 ])
 const gridSize = { rows: 11, cols: 11 }
 const centerX = Math.floor(gridSize.cols / 2)
@@ -63,8 +63,7 @@ watch(
 )
 
 onMounted(() => {
-
-  const roomNumber =  getItem("roomNumber")
+  const roomNumber = getItem('roomNumber')
 
   if (!roomNumber) {
     router.push('/')
@@ -121,13 +120,13 @@ socket.on('send rules', newRules => {
 
 socket.on('game won', () => {
   console.log('game won')
-  removeItem("roomNumber")
+  removeItem('roomNumber')
   // modal with you won in that amount of time, proceed button or redirect
   // toast win with timeout redirect
 })
 
 socket.on('end game', () => {
-  removeItem("roomNumber")
+  removeItem('roomNumber')
   router.push('/wait')
 })
 
@@ -161,10 +160,9 @@ onUnmounted(() => {
             monster:
               gridCase.x === monsterPosition.x &&
               gridCase.y === monsterPosition.y &&
-              !(monsterPosition.x === 0 && monsterPosition.y === 0)
+              !(monsterPosition.x === 0 && monsterPosition.y === 0),
           }"
-        >
-        </div>
+        ></div>
       </div>
     </div>
 

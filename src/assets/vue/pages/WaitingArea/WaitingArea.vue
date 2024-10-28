@@ -18,6 +18,12 @@ const isButton = ref(true)
 const isMovedUp = ref(false)
 const errorToast = ref<InstanceType<typeof ForestToast> | null>(null)
 
+const triggerToast = () => {
+  if (errorToast.value) {
+    errorToast.value.showToast()
+  }
+}
+
 const goToGame = () => {
   console.log(code.value)
   if (!code.value) {
@@ -36,12 +42,11 @@ const goToGame = () => {
     }
   }, 10000)
 
-
   socket.on('join room', room => {
     console.log('join room', room)
     isLoading.value = false
     clearTimeout(socketTimeout)
-    setItem("roomNumber", room)
+    setItem('roomNumber', room)
     router.push('/game')
   })
 
@@ -65,7 +70,6 @@ const goToGame = () => {
     isError.value = true
     isLoading.value = false
   })
-
 }
 
 const initValue = () => {
@@ -75,7 +79,7 @@ const initValue = () => {
 }
 
 onMounted(() => {
-  removeItem("roomNumber")
+  removeItem('roomNumber')
   setTimeout(() => {
     isMovedUp.value = true
     isCard.value = true
@@ -84,30 +88,20 @@ onMounted(() => {
   isCard.value = false
   isButton.value = true
 })
-
 </script>
 
 <template>
   <Header></Header>
   <section id="waiting">
     <div v-if="isLoading" class="overlay"></div>
-    <div :class="['title', { 'move-up': isMovedUp }]">
+    <div class="title">
       <div class="forest-title">
         <h1 class="text-center font-bold">Forest Loop</h1>
       </div>
       <h2 class="text-2xl mt-4 text-white">Plongez dans l'aventure!</h2>
-      <button
-        v-if="isButton"
-        class="animate__animated animate__bounceOut text-white font-bold py-2 px-4 rounded"
-      >
-        Commencer
-      </button>
     </div>
 
-    <div
-      v-if="isCard"
-      class="waitingCard animate__animated animate__fadeInUpBig"
-    >
+    <div class="waitingCard animate__animated animate__fadeInUp">
       <div class="px-6 py-4">
         <div class="font-bold text-l text-white">Code de la partie</div>
         <label for="gamecode"></label>

@@ -5,10 +5,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 2rem;
-  margin-top: 3rem;
   transition: margin-left 3s ease;
-  /*justify-content: center;*/
+  padding: 2rem;
 }
 
 .waitingCard {
@@ -19,22 +17,19 @@
   border-radius: 30px;
   opacity: 0.9;
   backdrop-filter: blur(50px);
-  height: 345px;
-  width: 345px;
-  margin-top: 200px;
+  height: 340px;
+  width: 340px;
 }
 
 .title {
-  position: absolute;
-  left: 50%;
-  top: 47%;
-  transform: translate(-50%, -40%);
-  transition: top 1s ease-out;
+  text-align: center;
+  transform: translateY(0%);
 }
 
-.title.move-up {
-  top: 15%;
-}
+/*.title.move-up {
+  margin: auto;
+  transform: translateY(12%);
+}*/
 
 .forest-title {
   background: url(../../../images/banner.png) no-repeat center center;
@@ -90,5 +85,7 @@ button {
 }
 
 button:hover {
-  transform: scale(0.8);
+  background-color: #45a049;
+  transform: scale(1.05);
+
 }
