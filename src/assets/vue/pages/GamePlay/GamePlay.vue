@@ -23,7 +23,7 @@ const centerY = Math.floor(gridSize.rows / 2)
 const gridCases = ref<GridCase[]>([])
 const playerPosition = ref({ x: 0, y: 0 })
 const monsterPosition = ref({ x: 0, y: 0 })
-const isModalOpen = ref(false)
+const isModalOpen = ref(false);
 const isMonsterInvisible = ref(false)
 const showWinGameModal = ref(false)
 
@@ -37,12 +37,6 @@ function highlightVege(ruleText: string) {
   }
   return ruleText
 }
-
-//socket.on ('player death', (player) => {
-//if (player === 'red') {
-//redPointPosition.value = { x: 0, y: 0 }
-//}
-//});
 
 watch(
   monsterPosition,
@@ -61,12 +55,14 @@ onMounted(() => {
 
   window.addEventListener('beforeunload', function () {
     router.push('/')
+    console.log('test beforeunload')
     removeItem('roomNumber')
     return
   });
 
   if (!roomNumber) {
     router.push('/')
+    console.log('test no room number')
     return
   }
 
@@ -91,21 +87,22 @@ socket.on('player coords', ({ x, y }) => {
   const currentX = playerPosition.value.x
   const currentY = playerPosition.value.y
 
-  // Trouver l'ancienne case
+  // Trouver la case actuelle
   const previousCase = gridCases.value.find(
     gridCase => gridCase.x === currentX && gridCase.y === currentY,
   )
 
-  // Marquer l'ancienne case comme visitée
-  if (previousCase) {
+  // Marquer la case comme visitée si son id n'est pas "0.0"
+  if (previousCase && previousCase.id !== '0.0') {
     previousCase.visited = true
   }
 
-  // A CHANGER PAR LA MORT DU JOUEUR RECU PAR SOCKET IO
-  // Si le point rouge passe par la case (0, 0), réinitialiser toutes les cases
+  // Réinitialiser toutes les cases sauf celle avec id "0.0" si le joueur passe par la case (0, 0)
   if (playerPosition.value.x === 0 && playerPosition.value.y === 0) {
     gridCases.value.forEach(gridCase => {
-      gridCase.visited = false
+      if (gridCase.id !== '0.0') {
+        gridCase.visited = false
+      }
     })
   }
 })
@@ -116,6 +113,16 @@ socket.on('monster coords', ({ x, y }) => {
 
 socket.on('send rules', newRules => {
   rules.value = newRules
+  const audio = new Audio('src/assets/images/notebook.wav')
+  audio.play()
+
+})
+
+socket.on ('player death', () => {
+  playerPosition.value = { x: 0, y: 0 }
+  gridCases.value.forEach(gridCase => {
+    gridCase.visited = false
+  })
 })
 
 socket.on("game won", () => {
@@ -128,6 +135,7 @@ socket.on("game won", () => {
 socket.on('end game', () => {
   removeItem('roomNumber')
   router.push('/wait')
+  console.log('end gameeee')
 })
 
 const toggleModal = (isOpen: boolean) => {
@@ -153,6 +161,7 @@ onUnmounted(() => {
           :id="gridCase.id"
           class="grid-case"
           :class="{
+            'map-center': gridCase.id === '0.0',
             'red-point':
               gridCase.x === playerPosition.x &&
               gridCase.y === playerPosition.y,

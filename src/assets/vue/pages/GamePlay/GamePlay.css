@@ -42,6 +42,11 @@
   width: calc(100% - 2px);
   border: 2px solid rgb(192, 179, 157);
 }
+
+.map-center {
+  background-color: orange;
+}
+
 .red-point {
   background-color: transparent;
   background-image: url('src/assets/images/Game_Boy_Advance_-_The_Legend_of_Zelda_The_MinLunk_head.png');
@@ -171,10 +176,10 @@
 }
 
 
-/* Animation for card spawning */
+/* Animation for card spawning
 @keyframes spawn {
   to {
     opacity: 1;
     transform: scale(1);
   }
-}
+} */
