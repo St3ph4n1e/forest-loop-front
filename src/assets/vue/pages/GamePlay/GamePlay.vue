@@ -59,6 +59,12 @@ watch(
 onMounted(() => {
   const roomNumber = getItem('roomNumber')
 
+  window.addEventListener('beforeunload', function () {
+    router.push('/')
+    removeItem('roomNumber')
+    return
+  });
+
   if (!roomNumber) {
     router.push('/')
     return
