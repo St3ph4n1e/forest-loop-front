@@ -48,6 +48,7 @@
   background-size: 70%;
   background-position: center;
   background-repeat: no-repeat;
+  image-rendering: pixelated;
 }
 
 .monster {
@@ -57,6 +58,7 @@
   background-position: center;
   background-repeat: no-repeat;
   opacity: 1;
+  image-rendering: pixelated;
 
   &.showMonster {
     background-image: '';
