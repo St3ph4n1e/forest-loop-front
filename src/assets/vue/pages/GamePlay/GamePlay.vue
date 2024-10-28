@@ -1,22 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import socket from '@/socket-io/socket'
 import Header from '../../components/Header/Header.vue'
 import type { GridCase } from '../../types/gridCase'
 import Modal from '@/assets/vue/components/Modal/Modal.vue'
-import SpriteContent from '@/assets/vue/components/SpriteContent/SpriteContent.vue'
 import WinGameContent from '@/assets/vue/components/WinGameContent/WinGameContent.vue'
+import { getItem, removeItem } from '@/helpers/localstorage.helper'
+import router from '@/router'
 
-const rules = ref([
-  'test1',
-  'test1',
-  'si champignons balbalbalbalblablalbalblalba alors gauche',
-  'si buisson alors droite',
-  'si arbre alors haut',
-  'si roseau alors bas',
-  'si rocher alors haut',
-  'si buche alors bas',
-])
+const rules = ref([])
 const vege = ref([
   'buisson',
   'arbre',
@@ -65,6 +57,14 @@ watch(
 )
 
 onMounted(() => {
+
+  const roomNumber =  getItem("roomNumber")
+
+  if (!roomNumber) {
+    router.push('/')
+    return
+  }
+
   const tempGridCases = []
   for (let y = 0; y < gridSize.rows; y++) {
     for (let x = 0; x < gridSize.cols; x++) {
@@ -115,6 +115,12 @@ socket.on('send rules', newRules => {
 
 socket.on("game won", () => {
   showWinGameModal.value = true
+  removeItem("roomNumber")
+})
+
+socket.on('end game', () => {
+  removeItem("roomNumber")
+  router.push('/wait')
 })
 
 const toggleModal = (isOpen: boolean) => {
@@ -130,7 +136,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <Header @modal-toggle="toggleModal"></Header> />
+  <Header @modal-toggle="toggleModal"></Header>
   <div v-show="!isModalOpen" class="game-container">
     <div class="left-pane">
       <div class="grid-map">
