@@ -2,11 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+img {
+  image-rendering: pixelated;
+}
+
 #app {
   width: 100%;
   height: 100vh;
   margin: 0 auto;
-  overflow-y: scroll;
+  overflow-y: hidden;
   padding: 2rem;
   font-weight: normal;
   font-family: 'Press Start 2P', cursive;
@@ -25,3 +29,4 @@ body {
   margin: 0;
   padding: 0;
 }
+

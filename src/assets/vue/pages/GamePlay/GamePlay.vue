@@ -15,7 +15,7 @@ const vege = ref([
   'champignon',
   'roseau',
   'rocher',
-  'buche',
+  'bûche',
 ])
 const gridSize = { rows: 11, cols: 11 }
 const centerX = Math.floor(gridSize.cols / 2)
@@ -57,8 +57,7 @@ watch(
 )
 
 onMounted(() => {
-
-  const roomNumber =  getItem("roomNumber")
+  const roomNumber = getItem('roomNumber')
 
   if (!roomNumber) {
     router.push('/')
@@ -119,7 +118,7 @@ socket.on("game won", () => {
 })
 
 socket.on('end game', () => {
-  removeItem("roomNumber")
+  removeItem('roomNumber')
   router.push('/wait')
 })
 
@@ -153,10 +152,9 @@ onUnmounted(() => {
             monster:
               gridCase.x === monsterPosition.x &&
               gridCase.y === monsterPosition.y &&
-              !(monsterPosition.x === 0 && monsterPosition.y === 0)
+              !(monsterPosition.x === 0 && monsterPosition.y === 0),
           }"
-        >
-        </div>
+        ></div>
       </div>
     </div>
 

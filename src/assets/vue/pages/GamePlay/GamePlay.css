@@ -63,7 +63,6 @@
   }
 }
 
-
 .visited {
   background-color: green;
 }
@@ -120,7 +119,6 @@
   text-align: center;
 }
 
-
 /* Face1 content paragraph styling */
 .gamer-font {
   display: flex;
@@ -130,8 +128,6 @@
   margin: 0;
   width: 100%;
   color: white;
-  overflow-y: scroll;
-
 }
 
 .gamer-font > img {
