@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import 'animate.css'
 import Header from '@/assets/vue/components/Header/Header.vue'
 import socket from '@/socket-io/socket'
-import { removeItem, setItem } from '@/helpers/localstorage.helper'
+import { getItem, removeItem, setItem } from '@/helpers/localstorage.helper'
 import ForestToast from '@/assets/vue/components/ForestToast/ForestToast.vue'
 
 const router = useRouter()
@@ -78,7 +78,12 @@ const initValue = () => {
 }
 
 onMounted(() => {
-  removeItem('roomNumber')
+
+  if (getItem('roomNumber')) {
+    socket.emit('end game')
+    removeItem('roomNumber')
+  }
+
   setTimeout(() => {
     isMovedUp.value = true
     isCard.value = true
