@@ -113,7 +113,9 @@ socket.on('send rules', newRules => {
 })
 
 socket.on("game won", () => {
+  console.log("game won")
   showWinGameModal.value = true
+  console.log(showWinGameModal.value)
   removeItem("roomNumber")
 })
 
