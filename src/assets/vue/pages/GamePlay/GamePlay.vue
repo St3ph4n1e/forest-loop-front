@@ -33,7 +33,7 @@ const playerPosition = ref({ x: 0, y: 0 })
 const monsterPosition = ref({ x: 0, y: 0 })
 const isModalOpen = ref(false)
 const isMonsterInvisible = ref(false)
-const showWinGameModal = ref(false)
+const showWinGameModal = ref(true)
 
 // Fonction pour vérifier les mots et injecter les images
 function highlightVege(ruleText: string) {
@@ -168,7 +168,7 @@ onUnmounted(() => {
   </div>
   <Modal :title="'Victoire'" :show-modal="showWinGameModal" :closable="false">
     <div class="modal-content">
-      <div class="scrollable-content">
+      <div class="wingame-container">
         <WinGameContent />
       </div>
     </div>

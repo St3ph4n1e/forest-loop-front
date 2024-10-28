@@ -9,16 +9,16 @@ const goToWaitingRoom = () => {
 </script>
 
 <template>
-<div class="continer-win">
-  <h3 class="title">
+<div class="container-win">
+  <h3 class="title-win">
     Bien joué, guide avisé ! 🌿 Grâce à toi, la sortie est trouvée et la boucle est rompue !
   </h3>
-  <button @click="goToWaitingRoom">
+  <button class="btn" @click="goToWaitingRoom">
     Retour en salle d'attente
   </button>
 </div>
 </template>
 
-<style scoped lang="css">
+<style src="./WinGameContent.css" scoped lang="css">
 
 </style>
