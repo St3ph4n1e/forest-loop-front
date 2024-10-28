@@ -33,7 +33,7 @@ const playerPosition = ref({ x: 0, y: 0 })
 const monsterPosition = ref({ x: 0, y: 0 })
 const isModalOpen = ref(false)
 const isMonsterInvisible = ref(false)
-const showWinGameModal = ref(true)
+const showWinGameModal = ref(false)
 
 // Fonction pour vérifier les mots et injecter les images
 function highlightVege(ruleText: string) {
