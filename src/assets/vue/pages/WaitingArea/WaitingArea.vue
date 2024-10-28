@@ -43,7 +43,6 @@ const goToGame = () => {
   }, 10000)
 
   socket.on('join room', room => {
-    console.log('join room', room)
     isLoading.value = false
     clearTimeout(socketTimeout)
     setItem('roomNumber', room)

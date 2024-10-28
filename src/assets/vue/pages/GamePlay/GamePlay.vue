@@ -1,21 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import socket from '@/socket-io/socket'
 import Header from '../../components/Header/Header.vue'
 import type { GridCase } from '../../types/gridCase'
+import Modal from '@/assets/vue/components/Modal/Modal.vue'
+import WinGameContent from '@/assets/vue/components/WinGameContent/WinGameContent.vue'
 import { getItem, removeItem } from '@/helpers/localstorage.helper'
 import router from '@/router'
 
-const rules = ref([
-  'test1',
-  'test1',
-  'si champignons balbalbalbalblablalbalblalba alors gauche',
-  'si buisson alors droite',
-  'si arbre alors haut',
-  'si roseau alors bas',
-  'si rocher alors haut',
-  'si bûche alors bas',
-])
+const rules = ref([])
 const vege = ref([
   'buisson',
   'arbre',
@@ -32,6 +25,7 @@ const playerPosition = ref({ x: 0, y: 0 })
 const monsterPosition = ref({ x: 0, y: 0 })
 const isModalOpen = ref(false)
 const isMonsterInvisible = ref(false)
+const showWinGameModal = ref(false)
 
 // Fonction pour vérifier les mots et injecter les images
 function highlightVege(ruleText: string) {
@@ -118,11 +112,11 @@ socket.on('send rules', newRules => {
   rules.value = newRules
 })
 
-socket.on('game won', () => {
-  console.log('game won')
-  removeItem('roomNumber')
-  // modal with you won in that amount of time, proceed button or redirect
-  // toast win with timeout redirect
+socket.on("game won", () => {
+  console.log("game won")
+  showWinGameModal.value = true
+  console.log(showWinGameModal.value)
+  removeItem("roomNumber")
 })
 
 socket.on('end game', () => {
@@ -178,6 +172,13 @@ onUnmounted(() => {
       </div>
     </div>
   </div>
+  <Modal :title="'Victoire'" :show-modal="showWinGameModal" :closable="false">
+    <div class="modal-content">
+      <div class="wingame-container">
+        <WinGameContent />
+      </div>
+    </div>
+  </Modal>
 </template>
 
 <style src="./GamePlay.css" lang="css" scoped></style>

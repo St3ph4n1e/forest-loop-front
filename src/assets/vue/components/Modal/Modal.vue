@@ -13,6 +13,10 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  closable: {
+    type: Boolean,
+    default: true
+  }
 })
 
 const closeModal = () => {
@@ -30,13 +34,13 @@ const closeModal = () => {
     <div class="modal-body flex flex-col justify-between">
       <div class="modal-header text-center">
         <h2>{{ title }}</h2>
-        <span @click="closeModal" class="close-btn">&times;</span>
+        <span v-if="closable" @click="closeModal" class="close-btn">&times;</span>
       </div>
       <div class="modal-content">
         <p v-if="description">{{ description }}</p>
         <slot v-else> </slot>
       </div>
-      <footer v-if="title" class="modal-footer">
+      <footer v-if="closable && title" class="modal-footer">
         <button class="btn" @click="closeModal">C'est Compris</button>
       </footer>
     </div>
