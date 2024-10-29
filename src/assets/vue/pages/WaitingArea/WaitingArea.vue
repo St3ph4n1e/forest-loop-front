@@ -37,9 +37,10 @@ const goToGame = () => {
 
   const socketTimeout = setTimeout(() => {
     isLoading.value = false
-    if (errorToast.value) {
+    triggerToast()
+  /*  if (errorToast.value) {
       errorToast.value.showToast()
-    }
+    }*/
   }, 10000)
 
   socket.on('join room', room => {
@@ -54,6 +55,8 @@ const goToGame = () => {
     errorMessage.value = 'La room est pleine.'
     isError.value = true
     isLoading.value = false
+    clearTimeout(socketTimeout);
+
   })
 
   socket.on('already in room', () => {
@@ -61,6 +64,7 @@ const goToGame = () => {
     errorMessage.value = 'Vous êtes déjà dans une room.'
     isError.value = true
     isLoading.value = false
+    clearTimeout(socketTimeout);
   })
 
   socket.on('room does not exist', () => {
@@ -68,6 +72,7 @@ const goToGame = () => {
     errorMessage.value = "Cette room n'existe pas."
     isError.value = true
     isLoading.value = false
+    clearTimeout(socketTimeout);
   })
 }
 
@@ -78,7 +83,6 @@ const initValue = () => {
 }
 
 onMounted(() => {
-
   if (getItem('roomNumber')) {
     socket.emit('end game')
     removeItem('roomNumber')

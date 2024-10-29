@@ -5,7 +5,7 @@ import Header from '../../components/Header/Header.vue'
 import type { GridCase } from '../../types/gridCase'
 import Modal from '@/assets/vue/components/Modal/Modal.vue'
 import WinGameContent from '@/assets/vue/components/WinGameContent/WinGameContent.vue'
-import { getItem, removeItem } from '@/helpers/localstorage.helper'
+import { getItem, removeItem, setItem } from '@/helpers/localstorage.helper'
 import router from '@/router'
 
 const rules = ref([])
@@ -49,20 +49,24 @@ watch(
   },
   { immediate: true },
 )
+const handleRedirection = (target: string) => {
+  const roomNumber = getItem('roomNumber');
+  if (roomNumber || target === '/') {
+    router.push(target);
+  }
+}
 
 onMounted(() => {
   const roomNumber = getItem('roomNumber')
 
   window.addEventListener('beforeunload', function () {
-    router.push('/')
-    console.log('test beforeunload')
+    console.log("on beforeunload")
     removeItem('roomNumber')
-    return
   });
 
   if (!roomNumber) {
-    router.push('/')
-    console.log('test no room number')
+    console.log("no room number in local storage")
+    handleRedirection('/')
     return
   }
 
@@ -133,9 +137,9 @@ socket.on("game won", () => {
 })
 
 socket.on('end game', () => {
+  console.log("end game called")
   removeItem('roomNumber')
-  router.push('/wait')
-  console.log('end gameeee')
+  handleRedirection('/wait')
 })
 
 const toggleModal = (isOpen: boolean) => {
