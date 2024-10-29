@@ -176,10 +176,10 @@
 }
 
 
-/* Animation for card spawning
+/* Animation for card spawning */
 @keyframes spawn {
   to {
     opacity: 1;
     transform: scale(1);
   }
-} */
+}

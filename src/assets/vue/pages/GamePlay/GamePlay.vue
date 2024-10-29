@@ -7,6 +7,7 @@ import Modal from '@/assets/vue/components/Modal/Modal.vue'
 import WinGameContent from '@/assets/vue/components/WinGameContent/WinGameContent.vue'
 import { getItem, removeItem } from '@/helpers/localstorage.helper'
 import router from '@/router'
+import ForestToast from '@/assets/vue/components/ForestToast/ForestToast.vue'
 
 const rules = ref([])
 const vege = ref([
@@ -26,6 +27,8 @@ const monsterPosition = ref({ x: 0, y: 0 })
 const isModalOpen = ref(false);
 const isMonsterInvisible = ref(false)
 const showWinGameModal = ref(false)
+const errorToast = ref<InstanceType<typeof ForestToast> | null>(null)
+const hasShownErrorToast = ref(false)
 
 // Fonction pour vérifier les mots et injecter les images
 function highlightVege(ruleText: string) {
@@ -49,20 +52,31 @@ watch(
   },
   { immediate: true },
 )
+const handleRedirection = (target: string) => {
+  const roomNumber = getItem('roomNumber');
+  if (roomNumber || target === '/') {
+    router.push(target);
+  }
+}
+
+const triggerToast = () => {
+  if (errorToast.value && !hasShownErrorToast.value) {
+    errorToast.value.showToast()
+    hasShownErrorToast.value = true
+  }
+}
 
 onMounted(() => {
   const roomNumber = getItem('roomNumber')
 
   window.addEventListener('beforeunload', function () {
-    router.push('/')
-    console.log('test beforeunload')
+    console.log("on beforeunload")
     removeItem('roomNumber')
-    return
   });
 
   if (!roomNumber) {
-    router.push('/')
-    console.log('test no room number')
+    console.log("no room number in local storage")
+    handleRedirection('/')
     return
   }
 
@@ -96,15 +110,6 @@ socket.on('player coords', ({ x, y }) => {
   if (previousCase && previousCase.id !== '0.0') {
     previousCase.visited = true
   }
-
-  // Réinitialiser toutes les cases sauf celle avec id "0.0" si le joueur passe par la case (0, 0)
-  if (playerPosition.value.x === 0 && playerPosition.value.y === 0) {
-    gridCases.value.forEach(gridCase => {
-      if (gridCase.id !== '0.0') {
-        gridCase.visited = false
-      }
-    })
-  }
 })
 
 socket.on('monster coords', ({ x, y }) => {
@@ -117,6 +122,13 @@ socket.on('send rules', newRules => {
   audio.play()
 
 })
+
+socket.on("connect_error", (err) => {
+  triggerToast()
+  setTimeout(() => {
+    handleRedirection("/")
+  }, 10000)
+});
 
 socket.on ('player death', () => {
   playerPosition.value = { x: 0, y: 0 }
@@ -133,9 +145,9 @@ socket.on("game won", () => {
 })
 
 socket.on('end game', () => {
+  console.log("end game called")
   removeItem('roomNumber')
-  router.push('/wait')
-  console.log('end gameeee')
+  handleRedirection('/wait')
 })
 
 const toggleModal = (isOpen: boolean) => {
@@ -194,6 +206,11 @@ onUnmounted(() => {
       </div>
     </div>
   </Modal>
+  <ForestToast
+    message="Connection échouée ..."
+    class="mt-50"
+    ref="errorToast"
+  ></ForestToast>
 </template>
 
 <style src="./GamePlay.css" lang="css" scoped></style>
