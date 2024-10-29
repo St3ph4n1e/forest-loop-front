@@ -5,8 +5,9 @@ import Header from '../../components/Header/Header.vue'
 import type { GridCase } from '../../types/gridCase'
 import Modal from '@/assets/vue/components/Modal/Modal.vue'
 import WinGameContent from '@/assets/vue/components/WinGameContent/WinGameContent.vue'
-import { getItem, removeItem, setItem } from '@/helpers/localstorage.helper'
+import { getItem, removeItem } from '@/helpers/localstorage.helper'
 import router from '@/router'
+import ForestToast from '@/assets/vue/components/ForestToast/ForestToast.vue'
 
 const rules = ref([])
 const vege = ref([
@@ -26,6 +27,8 @@ const monsterPosition = ref({ x: 0, y: 0 })
 const isModalOpen = ref(false);
 const isMonsterInvisible = ref(false)
 const showWinGameModal = ref(false)
+const errorToast = ref<InstanceType<typeof ForestToast> | null>(null)
+const hasShownErrorToast = ref(false)
 
 // Fonction pour vérifier les mots et injecter les images
 function highlightVege(ruleText: string) {
@@ -53,6 +56,13 @@ const handleRedirection = (target: string) => {
   const roomNumber = getItem('roomNumber');
   if (roomNumber || target === '/') {
     router.push(target);
+  }
+}
+
+const triggerToast = () => {
+  if (errorToast.value && !hasShownErrorToast.value) {
+    errorToast.value.showToast()
+    hasShownErrorToast.value = true
   }
 }
 
@@ -121,6 +131,13 @@ socket.on('send rules', newRules => {
   audio.play()
 
 })
+
+socket.on("connect_error", (err) => {
+  triggerToast()
+  setTimeout(() => {
+    handleRedirection("/")
+  }, 10000)
+});
 
 socket.on ('player death', () => {
   playerPosition.value = { x: 0, y: 0 }
@@ -198,6 +215,11 @@ onUnmounted(() => {
       </div>
     </div>
   </Modal>
+  <ForestToast
+    message="Connection échouée ..."
+    class="mt-50"
+    ref="errorToast"
+  ></ForestToast>
 </template>
 
 <style src="./GamePlay.css" lang="css" scoped></style>
