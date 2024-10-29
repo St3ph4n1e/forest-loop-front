@@ -110,15 +110,6 @@ socket.on('player coords', ({ x, y }) => {
   if (previousCase && previousCase.id !== '0.0') {
     previousCase.visited = true
   }
-
-  // Réinitialiser toutes les cases sauf celle avec id "0.0" si le joueur passe par la case (0, 0)
-  if (playerPosition.value.x === 0 && playerPosition.value.y === 0) {
-    gridCases.value.forEach(gridCase => {
-      if (gridCase.id !== '0.0') {
-        gridCase.visited = false
-      }
-    })
-  }
 })
 
 socket.on('monster coords', ({ x, y }) => {
