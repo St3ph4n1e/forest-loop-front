@@ -1,39 +1,55 @@
-# forest-loop
+# 🌲 Forest Loop 🌲
 
-This template should help get you started developing with Vue 3 in Vite.
+> **Bienvenue dans l'aventure mystique** où deux âmes collaborent pour s'échapper d’une forêt enchantée. Ici, chaque joueur a un rôle crucial :
+- L'un se déplace au cœur d’une forêt mystérieuse, percevant des éléments étranges autour de lui tout en étant poursuivi par une âme perdu.
+- L'autre, **Gardien des Règles**, guide en suivant les chemins sûrs tracés par les règles anciennes, sans voir l'environnement mais snetant la presence des cette fameuse âme perdu qui rôde dans la forêt.
 
-## Recommended IDE Setup
+## 🎮 Gameplay
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+1. **Le Joueur 1 : L’Explorateur Perdu**
+   - Se déplace de **tuile en tuile** dans la forêt.
+   - Observe les éléments distinctifs (cailloux, champignons, buissons) pour deviner la prochaine direction à prendre.
+   - À chaque erreur, une force mystique le téléporte à l’entrée de la forêt.
 
-## Type Support for `.vue` Imports in TS
+2. **Le Joueur 2 : Le Gardien des Règles**
+   - Détient **les règles mystiques** et la carte de la forêt, mais reste aveugle aux symboles.
+   - Guide l'Explorateur en interprétant ses descriptions.
+   - Sur sa carte, il voit la position du joueur et celle d’un monstre mystérieux qui rôde dans la forêt.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+3. **Les Règles Évolutives**
+   - Chaque tuile parcourue ajoute une règle au défi. Par exemple :
+      - *"Si une pierre rouge apparaît dans la tuile, dirige-toi vers la droite."*
+   - Les règles commencent simplement, mais la complexité augmente au fur et à mesure que l'Explorateur approche de la sortie.
 
-## Customize configuration
+## 📜 Thème et Objectif
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+> *Les joueurs sont piégés dans une **boucle temporelle** étrange, où chaque erreur les ramène au point de départ.*
 
-## Project Setup
+Chaque joueur doit jouer son rôle en parfaite synchronisation pour réussir à échapper à la forêt enchantée. En route pour percer le mystère de ce lieu ensorcelé où chaque recoin cache un nouveau secret !
+L'un decrivant son environement à l'autre qui lui guide son chemin en suivant les règles mystiques.
 
-```sh
-npm install
-```
+---
 
-### Compile and Hot-Reload for Development
+## 🎲 Comment Jouer
 
-```sh
-npm run dev
-```
+### 🚀 Installation Web
 
-### Type-Check, Compile and Minify for Production
+1. Clonez le projet :
+   ```bash
+   git clone github.com/St3ph4n1e/forest-loop-front
+   
+2. Installez les dépendances :
+   ```bash
+   npm install
+   ```
+3. Lancez le jeu : 
 
-```sh
-npm run build
-```
+    ```bash
+    npm run dev
+    ```
 
-### Lint with [ESLint](https://eslint.org/)
+4. Attendre le code coté Unity et c'est parti (Vous pouvez lire les règles en attendant)
 
-```sh
-npm run lint
-```
+
+
+**Bonne chance, âmes courageuses, et que la forêt vous soit favorable !**
