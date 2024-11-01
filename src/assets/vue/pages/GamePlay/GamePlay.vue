@@ -8,6 +8,14 @@ import WinGameContent from '@/assets/vue/components/WinGameContent/WinGameConten
 import { getItem, removeItem } from '@/helpers/localstorage.helper'
 import router from '@/router'
 import ForestToast from '@/assets/vue/components/ForestToast/ForestToast.vue'
+import Buisson from '@/assets/images/buisson.png'
+import Arbre from '@/assets/images/arbre.png'
+import Champignon from '@/assets/images/champignon.png'
+import Roseau from '@/assets/images/roseau.png'
+import Rocher from '@/assets/images/rocher.png'
+import Buche from '@/assets/images/bûche.png'
+import NotebookSound from '@/assets/images/notebook.wav';
+
 
 const rules = ref([])
 const vege = ref([
@@ -18,6 +26,16 @@ const vege = ref([
   'rocher',
   'bûche',
 ])
+
+const plantImages = {
+  buisson: Buisson,
+  arbre: Arbre,
+  champignon: Champignon,
+  roseau: Roseau,
+  rocher: Rocher,
+  bûche: Buche,
+}
+
 const gridSize = { rows: 11, cols: 11 }
 const centerX = Math.floor(gridSize.cols / 2)
 const centerY = Math.floor(gridSize.rows / 2)
@@ -34,7 +52,7 @@ const hasShownErrorToast = ref(false)
 function highlightVege(ruleText: string) {
   for (let plant of vege.value) {
     if (ruleText.includes(plant)) {
-      const imageUrl = `src/assets/images/${plant}.png`
+      const imageUrl = plantImages[plant as keyof typeof plantImages]
       return `<img src="${imageUrl}" alt="${plant}" style="flex-basis: 10%"> <p style="font-size: 0.8rem; flex-basis: 60%;">${ruleText}</p>`
     }
   }
@@ -118,7 +136,7 @@ socket.on('monster coords', ({ x, y }) => {
 
 socket.on('send rules', newRules => {
   rules.value = newRules
-  const audio = new Audio('src/assets/images/notebook.wav')
+  const audio = new Audio(NotebookSound);
   audio.play()
 
 })
